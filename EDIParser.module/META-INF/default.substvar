@@ -83,7 +83,7 @@
 			<useLookupValue>false</useLookupValue>
 		</globalVariable>
 		<globalVariable>
-			<name>fullpathIn</name>
+			<name>/Project/File/fullPathIn</name>
 			<value>C:\Users\gianlucapagani\Desktop\EDI\InFile\*.txt</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
@@ -92,7 +92,34 @@
 			<useLookupValue>false</useLookupValue>
 		</globalVariable>
 		<globalVariable>
-			<name>separator</name>
+			<name>/Project/File/pathOutCsv</name>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\OutFile\csv\</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<isOverride>false</isOverride>
+			<useLookupValue>false</useLookupValue>
+		</globalVariable>
+		<globalVariable>
+			<name>/Project/File/pathOutWorked</name>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\OutFile\EDIWorked\</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<isOverride>false</isOverride>
+			<useLookupValue>false</useLookupValue>
+		</globalVariable>
+		<globalVariable>
+			<name>/Project/File/pathFailed</name>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\EDIFailed\</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<isOverride>false</isOverride>
+			<useLookupValue>false</useLookupValue>
+		</globalVariable>
+		<globalVariable>
+			<name>/Project/File/separator</name>
 			<value>;</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
@@ -101,11 +128,11 @@
 			<useLookupValue>false</useLookupValue>
 		</globalVariable>
 		<globalVariable>
-			<name>pathOut</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\OutFile\</value>
+			<name>/Project/Poller/pollingInterval</name>
+			<value>5</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
-			<type>String</type>
+			<type>Integer</type>
 			<isOverride>false</isOverride>
 			<useLookupValue>false</useLookupValue>
 		</globalVariable>

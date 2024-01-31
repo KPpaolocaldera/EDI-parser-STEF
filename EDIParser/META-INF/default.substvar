@@ -83,7 +83,7 @@
 			<useLookupValue>false</useLookupValue>
 		</globalVariable>
 		<globalVariable>
-			<name>//EDIParser.module//separator</name>
+			<name>//EDIParser.module///Project/File/separator</name>
 			<value>;</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
@@ -92,8 +92,17 @@
 			<useLookupValue>false</useLookupValue>
 		</globalVariable>
 		<globalVariable>
-			<name>//EDIParser.module//pathOut</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\OutFile\</value>
+			<name>//EDIParser.module///Project/Poller/pollingInterval</name>
+			<value>5</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Integer</type>
+			<isOverride>false</isOverride>
+			<useLookupValue>false</useLookupValue>
+		</globalVariable>
+		<globalVariable>
+			<name>//EDIParser.module///Project/File/fullPathIn</name>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\InFile\*.txt</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
@@ -101,8 +110,26 @@
 			<useLookupValue>false</useLookupValue>
 		</globalVariable>
 		<globalVariable>
-			<name>//EDIParser.module//fullpathIn</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\InFile\*.txt</value>
+			<name>//EDIParser.module///Project/File/pathFailed</name>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\EDIFailed\</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<isOverride>false</isOverride>
+			<useLookupValue>false</useLookupValue>
+		</globalVariable>
+		<globalVariable>
+			<name>//EDIParser.module///Project/File/pathOutWorked</name>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\OutFile\EDIWorked\</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<isOverride>false</isOverride>
+			<useLookupValue>false</useLookupValue>
+		</globalVariable>
+		<globalVariable>
+			<name>//EDIParser.module///Project/File/pathOutCsv</name>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\OutFile\csv\</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>

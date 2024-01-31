@@ -10,6 +10,8 @@
     xmlns:ns10="http://www.tibco.com/ns/Foresight/2010/20/D96A_HANMOV"
     xmlns:ns11="http://www.keypartner.com/ApplicationSchema"
     xmlns:ns12="http://tns.tibco.com/bw/activity/render/xsd/+436e1c77-8391-4c13-af3f-434b05b5c2ae+input"
+    xmlns:ns13="http://www.tibco.com/pe/WriteToLogActivitySchema"
+    xmlns:ns14="http://tns.tibco.com/bw/palette/internal/activityerror+bw.file.rename"
     xmlns:ns2="http://tns.tibco.com/bw/palette/internal/activityerror+bw.edi.EDIFACTPrescanner"
     xmlns:ns3="http://www.tibco.com/EDI/translator"
     xmlns:ns4="http://tns.tibco.com/bw/palette/internal/activityerror+bw.edi.Translator"
@@ -31,7 +33,6 @@
         <task name="Translator">
             <endingVariables>
                 <variable>Translator-input</variable>
-                <variable>FilePoller</variable>
             </endingVariables>
         </task>
         <task name="ParseXml">
@@ -46,31 +47,48 @@
                 <variable>ParseXml</variable>
             </endingVariables>
         </task>
-        <task name="WriteFileHeader">
+        <task name="WriteCSVHeader">
             <endingVariables>
-                <variable>WriteFileHeader-input</variable>
-                <variable>EDIFACTPrescanner</variable>
+                <variable>WriteCSVHeader-input</variable>
                 <variable>separator</variable>
-                <variable>pathout</variable>
             </endingVariables>
         </task>
         <task name="Iterate">
             <endingVariables>
-                <variable>Mapper</variable>
-                <variable>WriteFileHeader</variable>
+                <variable>WriteCSVHeader</variable>
                 <variable>currentElement</variable>
             </endingVariables>
         </task>
-        <task name="WriteFileBody">
+        <task name="WriteCSVBody">
             <endingVariables>
-                <variable>WriteFileBody-input</variable>
-                <variable>WriteFileBody</variable>
+                <variable>WriteCSVBody-input</variable>
+                <variable>WriteCSVBody</variable>
                 <variable>Renderdata</variable>
             </endingVariables>
         </task>
         <task name="Renderdata">
             <endingVariables>
                 <variable>Renderdata-input</variable>
+            </endingVariables>
+        </task>
+        <task name="MoveToEDIWorked">
+            <endingVariables>
+                <variable>MoveToEDIWorked-input</variable>
+                <variable>MoveToEDIWorked</variable>
+                <variable>EDIFACTPrescanner</variable>
+                <variable>Mapper</variable>
+            </endingVariables>
+        </task>
+        <task name="Log">
+            <endingVariables>
+                <variable>Log-input</variable>
+                <variable>FaultDetails</variable>
+            </endingVariables>
+        </task>
+        <task name="MoveToEDIFailed">
+            <endingVariables>
+                <variable>MoveToEDIFailed-input</variable>
+                <variable>MoveToEDIFailed</variable>
             </endingVariables>
         </task>
     </tibex:VariableDescriptor>
@@ -1094,6 +1112,38 @@
             </complexType>
             <element name="Rows" type="tns:Rows"/>
         </schema>
+        <xs:schema attributeFormDefault="unqualified"
+            elementFormDefault="qualified"
+            targetNamespace="http://www.tibco.com/pe/WriteToLogActivitySchema"
+            xmlns:tns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:complexType name="LogParametersType">
+                <xs:sequence>
+                    <xs:element form="unqualified" minOccurs="0"
+                        name="msgCode" type="xs:string"/>
+                    <xs:element form="unqualified" minOccurs="0"
+                        name="loggerName" type="xs:string"/>
+                    <xs:element form="unqualified" minOccurs="0"
+                        name="logLevel" type="xs:string"/>
+                    <xs:element form="unqualified" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ActivityInput" type="tns:LogParametersType"/>
+        </xs:schema>
+        <schema elementFormDefault="unqualified"
+            targetNamespace="http://tns.tibco.com/bw/palette/internal/activityerror+bw.file.rename"
+            xmlns="http://www.w3.org/2001/XMLSchema"
+            xmlns:Q1="http://schemas.tibco.com/bw/plugins/file/5.0/fileExceptions" xmlns:tns="http://tns.tibco.com/bw/palette/internal/activityerror+bw.file.rename">
+            <import namespace="http://schemas.tibco.com/bw/plugins/file/5.0/fileExceptions"/>
+            <element name="ActivityErrorData" type="tns:ActivityErrorDataType"/>
+            <complexType name="ActivityErrorDataType">
+                <choice>
+                    <element maxOccurs="1" minOccurs="0" ref="Q1:FileNotFoundException"/>
+                    <element maxOccurs="1" minOccurs="0" ref="Q1:IllegalRenameException"/>
+                    <element maxOccurs="1" minOccurs="0" ref="Q1:FileAlreadyExistsException"/>
+                    <element maxOccurs="1" minOccurs="0" ref="Q1:FileIOException"/>
+                </choice>
+            </complexType>
+        </schema>
     </tibex:Types>
     <tibex:ProcessInfo callable="false" createdBy="gianlucapagani"
         createdOn="Wed Jan 31 15:03:25 CET 2024" description=""
@@ -1577,6 +1627,41 @@
                                     x="742"
                                     xsi:type="notation:Bounds" y="86"/>
                                     </children>
+                                    <children type="4002">
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <styles fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles
+                                    backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+                                    <element href="//0/@process/@activity/@activity/@activities.7"/>
+                                    <layoutConstraint x="1118"
+                                    xsi:type="notation:Bounds" y="137"/>
+                                    </children>
                                     <styles xsi:type="notation:DrawerStyle"/>
                                     <styles xsi:type="notation:SortingStyle"/>
                                     <styles xsi:type="notation:FilteringStyle"/>
@@ -1589,8 +1674,8 @@
                                     gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
                                     <styles xsi:type="bwnotation:ResizingStyle"/>
                                     <element href="//0/@process/@activity/@activity"/>
-                                    <layoutConstraint height="384"
-                                    width="1125" xsi:type="notation:Bounds"/>
+                                    <layoutConstraint height="407"
+                                    width="1251" xsi:type="notation:Bounds"/>
                                 </children>
                                 <styles xsi:type="notation:SortingStyle"/>
                                 <styles xsi:type="notation:FilteringStyle"/>
@@ -1599,7 +1684,143 @@
                             <styles xsi:type="bwnotation:BackgroundStyle"/>
                             <styles xsi:type="bwnotation:ResizingStyle"/>
                             <element href="//0/@process/@activity"/>
-                            <layoutConstraint height="384" width="1128" xsi:type="notation:Bounds"/>
+                            <layoutConstraint height="407" width="1254" xsi:type="notation:Bounds"/>
+                        </children>
+                        <children type="4022">
+                            <children type="3022">
+                                <children type="4029">
+                                    <children type="3031">
+                                    <children type="4033">
+                                    <styles fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <element href="//0/@process/@activity/@faultHandlers/@catchAll"/>
+                                    <layoutConstraint
+                                    height="34" width="34"
+                                    xsi:type="notation:Bounds" y="68"/>
+                                    </children>
+                                    <styles xsi:type="notation:SortingStyle"/>
+                                    <styles xsi:type="notation:FilteringStyle"/>
+                                    </children>
+                                    <children type="3032">
+                                    <children type="4005">
+                                    <children type="3007">
+                                    <children type="4002">
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles
+                                    backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+                                    <element href="//0/@process/@activity/@faultHandlers/@catchAll/@activity/@activity/@activities.0"/>
+                                    <layoutConstraint
+                                    x="120"
+                                    xsi:type="notation:Bounds" y="46"/>
+                                    </children>
+                                    <children type="4002">
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles
+                                    backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+                                    <element href="//0/@process/@activity/@faultHandlers/@catchAll/@activity/@activity/@activities.1"/>
+                                    <layoutConstraint
+                                    x="375"
+                                    xsi:type="notation:Bounds" y="46"/>
+                                    </children>
+                                    <styles xsi:type="notation:DrawerStyle"/>
+                                    <styles xsi:type="notation:SortingStyle"/>
+                                    <styles xsi:type="notation:FilteringStyle"/>
+                                    </children>
+                                    <styles fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles
+                                    backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+                                    <styles xsi:type="bwnotation:ResizingStyle"/>
+                                    <element href="//0/@process/@activity/@faultHandlers/@catchAll/@activity/@activity"/>
+                                    <layoutConstraint
+                                    height="168"
+                                    width="1027" xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <styles xsi:type="notation:SortingStyle"/>
+                                    <styles xsi:type="notation:FilteringStyle"/>
+                                    </children>
+                                    <styles fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles xsi:type="bwnotation:BackgroundStyle"/>
+                                    <styles xsi:type="bwnotation:ResizingStyle"/>
+                                    <element href="//0/@process/@activity/@faultHandlers/@catchAll"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                </children>
+                                <styles xsi:type="notation:SortingStyle"/>
+                                <styles xsi:type="notation:FilteringStyle"/>
+                            </children>
+                            <styles fontName="Segoe UI" lineColor="0" xsi:type="notation:ShapeStyle"/>
+                            <styles xsi:type="bwnotation:BackgroundStyle"/>
+                            <styles xsi:type="bwnotation:ResizingStyle"/>
+                            <element href="//0/@process/@activity/@faultHandlers"/>
+                            <layoutConstraint height="207" width="1214"
+                                x="22" xsi:type="notation:Bounds" y="407"/>
                         </children>
                         <styles xsi:type="notation:SortingStyle"/>
                         <styles xsi:type="notation:FilteringStyle"/>
@@ -1609,7 +1830,7 @@
                     <styles xsi:type="bwnotation:BackgroundStyle"/>
                     <styles xsi:type="bwnotation:ResizingStyle"/>
                     <element href="//0/@process/@activity"/>
-                    <layoutConstraint height="408" width="1128" x="1"
+                    <layoutConstraint height="615" width="1254" x="1"
                         xsi:type="notation:Bounds" y="1"/>
                 </children>
                 <styles xsi:type="notation:SortingStyle"/>
@@ -1618,7 +1839,7 @@
             </children>
             <styles fontName="Segoe UI" lineColor="0" xsi:type="notation:ShapeStyle"/>
             <element href="//0/@process"/>
-            <layoutConstraint height="460" width="1470" xsi:type="notation:Bounds"/>
+            <layoutConstraint height="667" width="1596" xsi:type="notation:Bounds"/>
         </children>
         <styles xsi:type="notation:DiagramStyle"/>
         <element href="//0"/>
@@ -1721,6 +1942,28 @@
             <element href="//0/@process/@activity/@activity/@activities.6/@activity/@activities.1/@activity/@activity/@links/@children.2"/>
             <bendpoints points="[0, 0, 0, 0]$[0, 0, 0, 0]" xsi:type="notation:RelativeBendpoints"/>
         </edges>
+        <edges
+            source="//@children.0/@children.4/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.0"
+            target="//@children.0/@children.4/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1" type="4006">
+            <children type="6002">
+                <layoutConstraint xsi:type="notation:Location" y="40"/>
+            </children>
+            <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
+            <styles fontName="Segoe UI" xsi:type="notation:FontStyle"/>
+            <element href="//0/@process/@activity/@faultHandlers/@catchAll/@activity/@activity/@links/@children.0"/>
+            <bendpoints points="[0, 0, 0, 0]$[0, 0, 0, 0]" xsi:type="notation:RelativeBendpoints"/>
+        </edges>
+        <edges
+            source="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.6"
+            target="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.7" type="4006">
+            <children type="6002">
+                <layoutConstraint xsi:type="notation:Location" y="40"/>
+            </children>
+            <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
+            <styles fontName="Segoe UI" xsi:type="notation:FontStyle"/>
+            <element href="//0/@process/@activity/@activity/@links/@children.6"/>
+            <bendpoints points="[0, 0, 0, 0]$[0, 0, 0, 0]" xsi:type="notation:RelativeBendpoints"/>
+        </edges>
     </notation:Diagram>
     <tibex:NamespaceRegistry enabled="true">
         <tibex:namespaceItem
@@ -1745,6 +1988,8 @@
             namespace="http://www.tibco.com/namespaces/tnt/plugins/file" prefix="tns5"/>
         <tibex:namespaceItem
             namespace="http://tns.tibco.com/bw/activity/render/xsd/+436e1c77-8391-4c13-af3f-434b05b5c2ae+input" prefix="tns6"/>
+        <tibex:namespaceItem
+            namespace="http://www.tibco.com/pe/WriteToLogActivitySchema" prefix="tns7"/>
     </tibex:NamespaceRegistry>
     <bpws:import importType="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/ns/Foresight/2010/20/D96A_HANMOV"/>
     <bpws:import importType="http://www.w3.org/2001/XMLSchema"
@@ -1774,11 +2019,11 @@
             name="Mapper-input" sca-bpel:internal="true"/>
         <bpws:variable element="ns11:documentEntries" name="Mapper" sca-bpel:internal="true"/>
         <bpws:variable element="ns0:WriteActivityInputTextClass"
-            name="WriteFileHeader-input" sca-bpel:internal="true"/>
+            name="WriteCSVHeader-input" sca-bpel:internal="true"/>
         <bpws:variable element="ns0:WriteActivityOutputClass"
-            name="WriteFileHeader" sca-bpel:internal="true"/>
+            name="WriteCSVHeader" sca-bpel:internal="true"/>
         <bpws:variable element="ns7:ActivityErrorData"
-            name="_error_WriteFileHeader" sca-bpel:internal="true"/>
+            name="_error_WriteCSVHeader" sca-bpel:internal="true"/>
         <bpws:variable name="dataFormatResource"
             sca-bpel:hotUpdate="false" sca-bpel:privateProperty="true"
             sca-bpel:property="yes"
@@ -1792,20 +2037,35 @@
         <bpws:variable element="ns9:ActivityErrorData"
             name="_error_Renderdata" sca-bpel:internal="true"/>
         <bpws:variable element="ns0:WriteActivityInputTextClass"
-            name="WriteFileBody-input" sca-bpel:internal="true"/>
+            name="WriteCSVBody-input" sca-bpel:internal="true"/>
         <bpws:variable element="ns0:WriteActivityOutputClass"
-            name="WriteFileBody" sca-bpel:internal="true"/>
+            name="WriteCSVBody" sca-bpel:internal="true"/>
         <bpws:variable element="ns7:ActivityErrorData"
-            name="_error_WriteFileBody" sca-bpel:internal="true"/>
-        <bpws:variable name="fullpathIn" sca-bpel:hotUpdate="false"
+            name="_error_WriteCSVBody" sca-bpel:internal="true"/>
+        <bpws:variable name="fullPathIn" sca-bpel:hotUpdate="false"
             sca-bpel:privateProperty="true" sca-bpel:property="yes"
-            tibex:propertySource="fullpathIn" type="xsd:string"/>
+            tibex:propertySource="/Project/File/fullPathIn" type="xsd:string"/>
         <bpws:variable name="separator" sca-bpel:hotUpdate="false"
             sca-bpel:privateProperty="true" sca-bpel:property="yes"
-            tibex:propertySource="separator" type="xsd:string"/>
-        <bpws:variable name="pathout" sca-bpel:hotUpdate="false"
+            tibex:propertySource="/Project/File/separator" type="xsd:string"/>
+        <bpws:variable name="pollingInterval" sca-bpel:hotUpdate="false"
             sca-bpel:privateProperty="true" sca-bpel:property="yes"
-            tibex:propertySource="pathOut" type="xsd:string"/>
+            tibex:propertySource="/Project/Poller/pollingInterval" type="xsd:int"/>
+        <bpws:variable name="FaultName" sca-bpel:internal="true" type="xsd:string"/>
+        <bpws:variable element="ns:FaultDetail" name="FaultDetails" sca-bpel:internal="true"/>
+        <bpws:variable element="ns13:ActivityInput" name="Log-input" sca-bpel:internal="true"/>
+        <bpws:variable element="ns0:RenameActivityConfig"
+            name="MoveToEDIFailed-input" sca-bpel:internal="true"/>
+        <bpws:variable element="ns0:RenameActivityOutput"
+            name="MoveToEDIFailed" sca-bpel:internal="true"/>
+        <bpws:variable element="ns14:ActivityErrorData"
+            name="_error_MoveToEDIFailed" sca-bpel:internal="true"/>
+        <bpws:variable element="ns0:RenameActivityConfig"
+            name="MoveToEDIWorked-input" sca-bpel:internal="true"/>
+        <bpws:variable element="ns0:RenameActivityOutput"
+            name="MoveToEDIWorked" sca-bpel:internal="true"/>
+        <bpws:variable element="ns14:ActivityErrorData"
+            name="_error_MoveToEDIWorked" sca-bpel:internal="true"/>
     </bpws:variables>
     <bpws:extensions>
         <bpws:extension mustUnderstand="no" namespace="http://www.eclipse.org/gmf/runtime/1.0.2/notation"/>
@@ -1816,6 +2076,80 @@
         <bpws:extension mustUnderstand="no" namespace="http://www.tibco.com/bpel/2007/extensions"/>
     </bpws:extensions>
     <bpws:scope name="scope">
+        <bpws:faultHandlers>
+            <bpws:catchAll tibex:faultDetailsVar="FaultDetails"
+                tibex:faultNameVar="FaultName" tibex:xpdlId="d1ba37e8-2108-4043-8881-3169de5b1743">
+                <bpws:scope name="scope1">
+                    <bpws:flow name="flow2">
+                        <bpws:links>
+                            <bpws:link name="LogToRenameFile" tibex:linkType="SUCCESS"/>
+                        </bpws:links>
+                        <bpws:extensionActivity>
+                            <tibex:activityExtension
+                                inputVariable="Log-input" name="Log"
+                                tibex:xpdlId="a95d851a-8377-4730-8b12-ae04f8dda1f5" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                                <bpws:sources>
+                                    <bpws:source linkName="LogToRenameFile"/>
+                                </bpws:sources>
+                                <tibex:inputBindings>
+                                    <tibex:inputBinding
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/pe/WriteToLogActivitySchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FaultDetails&quot;/>&lt;xsl:template name=&quot;Log-input&quot; match=&quot;/&quot;>&lt;tns7:ActivityInput>&lt;message>&lt;xsl:value-of select=&quot;concat($FaultDetails/MsgCode,&amp;quot; - &amp;quot;,$FaultDetails/Msg)&quot;/>&lt;/message>&lt;/tns7:ActivityInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                </tibex:inputBindings>
+                                <tibex:config>
+                                    <bwext:BWActivity
+                                    activityTypeID="bw.generalactivities.log"
+                                    version="6.0.0.001"
+                                    xmlns:activityconfig="http://tns.tibco.com/bw/model/activityconfig"
+                                    xmlns:bwext="http://tns.tibco.com/bw/model/core/bwext"
+                                    xmlns:generalactivities="http://ns.tibco.com/bw/palette/generalactivities" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                    <activityConfig>
+                                    <properties name="config" xsi:type="activityconfig:EMFProperty">
+                                    <type href="http://ns.tibco.com/bw/palette/generalactivities#//Log"/>
+                                    <value
+                                    controlBy="Application"
+                                    role="Debug"
+                                    suppressJobInfo="true" xsi:type="generalactivities:Log"/>
+                                    </properties>
+                                    </activityConfig>
+                                    </bwext:BWActivity>
+                                </tibex:config>
+                            </tibex:activityExtension>
+                        </bpws:extensionActivity>
+                        <bpws:extensionActivity>
+                            <tibex:activityExtension
+                                inputVariable="MoveToEDIFailed-input"
+                                name="MoveToEDIFailed"
+                                outputVariable="MoveToEDIFailed"
+                                tibex:xpdlId="fa2cc7e0-c39c-4388-9277-f19ddd2b434c" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                                <bpws:targets>
+                                    <bpws:target linkName="LogToRenameFile"/>
+                                </bpws:targets>
+                                <tibex:inputBindings>
+                                    <tibex:inputBinding
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;FilePoller&quot;/>&#xa;    &lt;xsl:template name=&quot;MoveToEDIFailed-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns5:RenameActivityConfig>&#xa;            &lt;fromFileName>&#xa;                &lt;xsl:value-of select=&quot;$FilePoller/fileInfo/fullName&quot;/>&#xa;            &lt;/fromFileName>&#xa;            &lt;toFileName>&#xa;                &lt;xsl:value-of select=&quot;concat(&amp;quot;C:\Users\gianlucapagani\Desktop\EDI\EDIFailed\&amp;quot;, $FilePoller/fileInfo/fileName, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;))&quot;/>&#xa;            &lt;/toFileName>&#xa;        &lt;/tns5:RenameActivityConfig>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                </tibex:inputBindings>
+                                <tibex:config>
+                                    <bwext:BWActivity
+                                    activityTypeID="bw.file.rename"
+                                    xmlns:activityconfig="http://tns.tibco.com/bw/model/activityconfig"
+                                    xmlns:bwext="http://tns.tibco.com/bw/model/core/bwext"
+                                    xmlns:file="http://ns.tibco.com/bw/palette/file" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                    <activityConfig>
+                                    <properties name="config" xsi:type="activityconfig:EMFProperty">
+                                    <type href="http://ns.tibco.com/bw/palette/file#//RenameFile"/>
+                                    <value
+                                    createDestinationDirectories="true"
+                                    overwrite="true" xsi:type="file:RenameFile"/>
+                                    </properties>
+                                    </activityConfig>
+                                    </bwext:BWActivity>
+                                </tibex:config>
+                            </tibex:activityExtension>
+                        </bpws:extensionActivity>
+                    </bpws:flow>
+                </bpws:scope>
+            </bpws:catchAll>
+        </bpws:faultHandlers>
         <bpws:flow name="flow">
             <bpws:links>
                 <bpws:link name="FilePollerToEDIFACTPrescanner" tibex:linkType="SUCCESS"/>
@@ -1824,6 +2158,7 @@
                 <bpws:link name="ParseXmlToMapper" tibex:linkType="SUCCESS"/>
                 <bpws:link name="MapperToWriteFile" tibex:linkType="SUCCESS"/>
                 <bpws:link name="WriteFileToIterate" tibex:linkType="SUCCESS"/>
+                <bpws:link name="IterateToRenameFile1" tibex:linkType="SUCCESS"/>
             </bpws:links>
             <bpws:extensionActivity>
                 <tibex:receiveEvent createInstance="yes"
@@ -1841,7 +2176,10 @@
                             xmlns:file="http://ns.tibco.com/bw/palette/file" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                             <attributeBindings
                                 bindingType="moduleProperty"
-                                eAttributeName="fileName" processProperty="fullpathIn"/>
+                                eAttributeName="fileName" processProperty="fullPathIn"/>
+                            <attributeBindings
+                                bindingType="moduleProperty"
+                                eAttributeName="pollInterval" processProperty="pollingInterval"/>
                             <activityConfig>
                                 <properties name="config" xsi:type="activityconfig:EMFProperty">
                                     <type href="http://ns.tibco.com/bw/palette/file#//FilePoller"/>
@@ -1850,7 +2188,6 @@
                                     includeCurrent="true"
                                     mode="files-and-directories"
                                     modifyEvent="true"
-                                    pollInterval="5"
                                     sortby="File Name"
                                     sortorder="descending" xsi:type="file:FilePoller"/>
                                 </properties>
@@ -1873,7 +2210,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;http://www.tibco.com/EDI/EDIFACTPrescanner&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FilePoller&quot;/>&lt;xsl:template name=&quot;EDIFACTPrescanner-input&quot; match=&quot;/&quot;>&lt;tns:EDIFACTPrescannerInput>&lt;input>&lt;xsl:value-of select=&quot;$FilePoller/fileContent/textContent&quot;/>&lt;/input>&lt;/tns:EDIFACTPrescannerInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;http://www.tibco.com/EDI/EDIFACTPrescanner&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;FilePoller&quot;/>&#xa;    &lt;xsl:template name=&quot;EDIFACTPrescanner-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns:EDIFACTPrescannerInput>&#xa;            &lt;input>&#xa;                &lt;xsl:value-of select=&quot;$FilePoller/fileContent/textContent&quot;/>&#xa;            &lt;/input>&#xa;        &lt;/tns:EDIFACTPrescannerInput>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
@@ -1910,7 +2247,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns1=&quot;http://www.tibco.com/EDI/translator&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FilePoller&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:template name=&quot;Translator-input&quot; match=&quot;/&quot;>&lt;tns1:translatorInput>&lt;input>&lt;xsl:value-of select=&quot;$FilePoller/fileContent/textContent&quot;/>&lt;/input>&lt;map_name>&lt;xsl:value-of select=&quot;concat($EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeVersionNumber,$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeReleaseNumber,'_',$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier,'_EX.map')&quot;/>&lt;/map_name>&lt;/tns1:translatorInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns1=&quot;http://www.tibco.com/EDI/translator&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;FilePoller&quot;/>&#xa;    &lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&#xa;    &lt;xsl:template name=&quot;Translator-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:translatorInput>&#xa;            &lt;input>&#xa;                &lt;xsl:value-of select=&quot;$FilePoller/fileContent/textContent&quot;/>&#xa;            &lt;/input>&#xa;            &lt;map_name>&#xa;                &lt;xsl:value-of select=&quot;concat($EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeVersionNumber,$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeReleaseNumber,'_',$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier,'_E.map')&quot;/>&#xa;            &lt;/map_name>&#xa;        &lt;/tns1:translatorInput>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
@@ -1999,9 +2336,9 @@
             </bpws:extensionActivity>
             <bpws:extensionActivity>
                 <tibex:activityExtension
-                    inputVariable="WriteFileHeader-input"
-                    name="WriteFileHeader"
-                    outputVariable="WriteFileHeader"
+                    inputVariable="WriteCSVHeader-input"
+                    name="WriteCSVHeader"
+                    outputVariable="WriteCSVHeader"
                     tibex:xpdlId="b5dd9680-fe71-4026-a693-5101f0ae7032" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
                     <bpws:targets>
                         <bpws:target linkName="MapperToWriteFile"/>
@@ -2011,7 +2348,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:param name=&quot;separator&quot;/>&lt;xsl:param name=&quot;pathout&quot;/>&lt;xsl:template name=&quot;WriteFileHeader-input&quot; match=&quot;/&quot;>&lt;tns5:WriteActivityInputTextClass>&lt;fileName>&lt;xsl:value-of select=&quot;concat($pathout,$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier,&amp;quot;_&amp;quot;,$Mapper/tns3:documentEntry[1]/tns3:orderId,&amp;quot;_&amp;quot;,format-dateTime(current-dateTime(),&amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;),&amp;quot;.csv&amp;quot;)&quot;/>&lt;/fileName>&lt;textContent>&lt;xsl:value-of select=&quot;concat(&amp;quot;OrderID&amp;quot;,$separator,&amp;quot;CustomerID&amp;quot;,$separator,&amp;quot;ArticleID&amp;quot;,$separator,&amp;quot;ArticleDescription&amp;quot;,$separator,&amp;quot;ArticleQuantity&amp;quot;,&amp;quot;&amp;#xA;&amp;quot;)&quot;/>&lt;/textContent>&lt;/tns5:WriteActivityInputTextClass>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:param name=&quot;separator&quot;/>&lt;xsl:template name=&quot;WriteFileHeader-input&quot; match=&quot;/&quot;>&lt;tns5:WriteActivityInputTextClass>&lt;fileName>&lt;xsl:value-of select=&quot;concat(&amp;quot;C:\Users\gianlucapagani\Desktop\EDI\OutFile\csv\&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns3:documentEntry[1]/tns3:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;.csv&amp;quot;)&quot;/>&lt;/fileName>&lt;textContent>&lt;xsl:value-of select=&quot;concat(&amp;quot;OrderID&amp;quot;,$separator,&amp;quot;CustomerID&amp;quot;,$separator,&amp;quot;ArticleID&amp;quot;,$separator,&amp;quot;ArticleDescription&amp;quot;,$separator,&amp;quot;ArticleQuantity&amp;quot;,&amp;quot;&amp;#xA;&amp;quot;)&quot;/>&lt;/textContent>&lt;/tns5:WriteActivityInputTextClass>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity activityTypeID="bw.file.write"
@@ -2030,12 +2367,13 @@
                     </tibex:config>
                 </tibex:activityExtension>
             </bpws:extensionActivity>
-            <bpws:scope name="Iterate" tibex:group="iterate"
-                tibex:indexOriginalName="index"
-                tibex:indexToGlobal="false" tibex:xpdlId="450c38f0-a0c3-40a4-bf5f-f5827aa74bdf">
+            <bpws:scope name="Iterate" tibex:group="iterate" tibex:xpdlId="450c38f0-a0c3-40a4-bf5f-f5827aa74bdf">
                 <bpws:targets>
                     <bpws:target linkName="WriteFileToIterate"/>
                 </bpws:targets>
+                <bpws:sources>
+                    <bpws:source linkName="IterateToRenameFile1"/>
+                </bpws:sources>
                 <bpws:sequence name="sequence" tibex:group="iterate">
                     <bpws:empty name="GroupInit" tibex:group="groupInit"/>
                     <bpws:forEach counterName="index" name="iterate"
@@ -2080,9 +2418,9 @@
                                 </bpws:empty>
                                 <bpws:extensionActivity>
                                     <tibex:activityExtension
-                                    inputVariable="WriteFileBody-input"
-                                    name="WriteFileBody"
-                                    outputVariable="WriteFileBody"
+                                    inputVariable="WriteCSVBody-input"
+                                    name="WriteCSVBody"
+                                    outputVariable="WriteCSVBody"
                                     tibex:xpdlId="f748f142-a6a3-42a4-a796-e1e628f4aed1" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
                                     <bpws:targets>
                                     <bpws:target linkName="RenderdataToWriteFile1"/>
@@ -2092,7 +2430,7 @@
                                     </bpws:sources>
                                     <tibex:inputBindings>
                                     <tibex:inputBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;WriteFileHeader&quot;/>&lt;xsl:param name=&quot;Renderdata&quot;/>&lt;xsl:template name=&quot;WriteFile1-input&quot; match=&quot;/&quot;>&lt;tns5:WriteActivityInputTextClass>&lt;fileName>&lt;xsl:value-of select=&quot;$WriteFileHeader/fileInfo/fullName&quot;/>&lt;/fileName>&lt;textContent>&lt;xsl:value-of select=&quot;$Renderdata&quot;/>&lt;/textContent>&lt;/tns5:WriteActivityInputTextClass>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;WriteCSVHeader&quot;/>&#xa;    &lt;xsl:param name=&quot;Renderdata&quot;/>&#xa;    &lt;xsl:template name=&quot;WriteFile1-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns5:WriteActivityInputTextClass>&#xa;            &lt;fileName>&#xa;                &lt;xsl:value-of select=&quot;$WriteCSVHeader/fileInfo/fullName&quot;/>&#xa;            &lt;/fileName>&#xa;            &lt;textContent>&#xa;                &lt;xsl:value-of select=&quot;$Renderdata&quot;/>&#xa;            &lt;/textContent>&#xa;        &lt;/tns5:WriteActivityInputTextClass>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                     </tibex:inputBindings>
                                     <tibex:config>
                                     <bwext:BWActivity
@@ -2153,6 +2491,37 @@
                     </bpws:forEach>
                 </bpws:sequence>
             </bpws:scope>
+            <bpws:extensionActivity>
+                <tibex:activityExtension
+                    inputVariable="MoveToEDIWorked-input"
+                    name="MoveToEDIWorked"
+                    outputVariable="MoveToEDIWorked"
+                    tibex:xpdlId="3f46b631-5a03-45c4-80eb-2276a76d3294" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                    <bpws:targets>
+                        <bpws:target linkName="IterateToRenameFile1"/>
+                    </bpws:targets>
+                    <tibex:inputBindings>
+                        <tibex:inputBinding
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;FilePoller&quot;/>&#xa;    &lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&#xa;    &lt;xsl:param name=&quot;Mapper&quot;/>&#xa;    &lt;xsl:template name=&quot;MoveToEDIWorked-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns5:RenameActivityConfig>&#xa;            &lt;fromFileName>&#xa;                &lt;xsl:value-of select=&quot;$FilePoller/fileInfo/fullName&quot;/>&#xa;            &lt;/fromFileName>&#xa;            &lt;toFileName>&#xa;                &lt;xsl:value-of select=&quot;concat(&amp;quot;C:\Users\gianlucapagani\Desktop\EDI\OutFile\EDIWorked\&amp;quot;, $FilePoller/fileInfo/fileName, &amp;quot;_&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns3:documentEntry[1]/tns3:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;))&quot;/>&#xa;            &lt;/toFileName>&#xa;        &lt;/tns5:RenameActivityConfig>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                    </tibex:inputBindings>
+                    <tibex:config>
+                        <bwext:BWActivity
+                            activityTypeID="bw.file.rename"
+                            xmlns:activityconfig="http://tns.tibco.com/bw/model/activityconfig"
+                            xmlns:bwext="http://tns.tibco.com/bw/model/core/bwext"
+                            xmlns:file="http://ns.tibco.com/bw/palette/file" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <activityConfig>
+                                <properties name="config" xsi:type="activityconfig:EMFProperty">
+                                    <type href="http://ns.tibco.com/bw/palette/file#//RenameFile"/>
+                                    <value
+                                    createDestinationDirectories="true"
+                                    overwrite="true" xsi:type="file:RenameFile"/>
+                                </properties>
+                            </activityConfig>
+                        </bwext:BWActivity>
+                    </tibex:config>
+                </tibex:activityExtension>
+            </bpws:extensionActivity>
         </bpws:flow>
     </bpws:scope>
 </bpws:process>

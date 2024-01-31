@@ -2,7 +2,7 @@
 <jndi:namedResource xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ApplicationSchema="http://www.keypartner.com/ApplicationSchema" xmlns:dataformat="http://ns.tibco.com/bw/palette/dataformat" xmlns:jndi="http://xsd.tns.tibco.com/amf/models/sharedresource/jndi" xmi:id="_plwwQMBFEe6srchUyZ-r8A" name="ediparser.module.DataFormatResource" type="dataformat:DataFormat">
   <imports xmi:id="_rst1sMBFEe6srchUyZ-r8A" importType="http://www.w3.org/2001/XMLSchema" namespace="http://www.keypartner.com/ApplicationSchema"/>
   <jndi:configuration xsi:type="dataformat:DataFormat" xmi:id="_plzMgMBFEe6srchUyZ-r8A" formatType="Delimiter separated" colSeparatorParseRule="Treat all characters as entered as a single column separator string" lineSeparator="New Line" fillCharacter="Space" schemaElementQName="ApplicationSchema:documentEntry" fieldOffsetsStr="orderId(0,0)&#xA;customerId(0,0)&#xA;articleId(0,0)&#xA;articleDescription(0,0)&#xA;articleQuantity(0,0)">
-    <substitutionBindings xmi:id="_qPC90MBFEe6srchUyZ-r8A" template="colSeparator" propName="separator"/>
+    <substitutionBindings xmi:id="_qPC90MBFEe6srchUyZ-r8A" template="colSeparator" propName="/Project/File/separator"/>
     <fieldOffsets xmi:id="_rtn0oMBFEe6srchUyZ-r8A" name="orderId"/>
     <fieldOffsets xmi:id="_rtn0ocBFEe6srchUyZ-r8A" name="customerId"/>
     <fieldOffsets xmi:id="_rtn0osBFEe6srchUyZ-r8A" name="articleId"/>
