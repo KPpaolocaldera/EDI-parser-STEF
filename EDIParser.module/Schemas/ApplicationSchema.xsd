@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.keypartner.com/ApplicationSchema"
+	xmlns:tns="http://www.keypartner.com/ApplicationSchema"
+	elementFormDefault="qualified">
+	
+	<element name="documentEntries" type="tns:documentEntries_type" />
+	<element name="documentEntry" type="tns:documentEntry_type" />
+	
+	<complexType name="documentEntries_type">
+		<sequence>
+			<element name="documentEntry" type="tns:documentEntry_type" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="documentEntry_type">
+		<sequence>
+			<element name="orderId" type="string" />
+			<element name="customerId" type="string" />
+			<element name="articleId" type="string" />
+			<element name="articleDescription" type="string" />
+			<element name="articleQuantity" type="integer" />
+		</sequence>
+	</complexType>
+</schema>
