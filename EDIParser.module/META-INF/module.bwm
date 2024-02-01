@@ -21,4 +21,7 @@
   <sca:component xmi:id="_ue0fYMCREe669MuAwb7BBg" name="ComponentCopyOfEDIParser_CSV" compositeext:version="1.0.0.qualifier">
     <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_ue0fYcCREe669MuAwb7BBg" processName="ediparser.csv.EDIParser_CSV"/>
   </sca:component>
+  <sca:component xmi:id="_33RfQMEPEe6D27efY7mYpA" name="ComponentEDIParser_DB" compositeext:version="1.0.0.qualifier">
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_33RfQcEPEe6D27efY7mYpA" processName="ediparser.db.EDIParser_DB"/>
+  </sca:component>
 </sca:composite>
