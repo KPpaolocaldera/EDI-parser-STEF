@@ -111,16 +111,7 @@
 		</globalVariable>
 		<globalVariable>
 			<name>//EDIParser.module///Project/File/pathFailed</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\EDIFailed\</value>
-			<deploymentSettable>false</deploymentSettable>
-			<serviceSettable>false</serviceSettable>
-			<type>String</type>
-			<isOverride>false</isOverride>
-			<useLookupValue>false</useLookupValue>
-		</globalVariable>
-		<globalVariable>
-			<name>//EDIParser.module///Project/File/pathOutWorked</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\OutFile\EDIWorked\</value>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\Failed\</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
@@ -130,6 +121,15 @@
 		<globalVariable>
 			<name>//EDIParser.module///Project/File/pathOutCsv</name>
 			<value>C:\Users\gianlucapagani\Desktop\EDI\OutFile\csv\</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<isOverride>false</isOverride>
+			<useLookupValue>false</useLookupValue>
+		</globalVariable>
+		<globalVariable>
+			<name>//EDIParser.module///Project/File/pathHistory</name>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\History\</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>

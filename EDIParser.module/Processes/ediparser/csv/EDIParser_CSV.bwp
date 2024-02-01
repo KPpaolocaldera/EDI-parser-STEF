@@ -51,6 +51,7 @@
             <endingVariables>
                 <variable>WriteCSVHeader-input</variable>
                 <variable>separator</variable>
+                <variable>pathOutCsv</variable>
             </endingVariables>
         </task>
         <task name="Iterate">
@@ -77,6 +78,7 @@
                 <variable>MoveToEDIWorked</variable>
                 <variable>EDIFACTPrescanner</variable>
                 <variable>Mapper</variable>
+                <variable>pathHistory</variable>
             </endingVariables>
         </task>
         <task name="LogStart">
@@ -92,13 +94,13 @@
         <task name="LogErr">
             <endingVariables>
                 <variable>LogErr-input</variable>
-                <variable>FaultDetails</variable>
             </endingVariables>
         </task>
         <task name="MoveToEDIFailed">
             <endingVariables>
                 <variable>MoveToEDIFailed-input</variable>
                 <variable>MoveToEDIFailed</variable>
+                <variable>pathFailed</variable>
             </endingVariables>
         </task>
     </tibex:VariableDescriptor>
@@ -2246,6 +2248,15 @@
         <bpws:variable element="ns13:ActivityInput"
             name="LogStart-input" sca-bpel:internal="true"/>
         <bpws:variable element="ns13:ActivityInput" name="LogEnd-input" sca-bpel:internal="true"/>
+        <bpws:variable name="pathOutCsv" sca-bpel:hotUpdate="false"
+            sca-bpel:privateProperty="true" sca-bpel:property="yes"
+            tibex:propertySource="/Project/File/pathOutCsv" type="xsd:string"/>
+        <bpws:variable name="pathHistory" sca-bpel:hotUpdate="false"
+            sca-bpel:privateProperty="true" sca-bpel:property="yes"
+            tibex:propertySource="/Project/File/pathHistory" type="xsd:string"/>
+        <bpws:variable name="pathFailed" sca-bpel:hotUpdate="false"
+            sca-bpel:privateProperty="true" sca-bpel:property="yes"
+            tibex:propertySource="/Project/File/pathFailed" type="xsd:string"/>
     </bpws:variables>
     <bpws:extensions>
         <bpws:extension mustUnderstand="no" namespace="http://www.eclipse.org/gmf/runtime/1.0.2/notation"/>
@@ -2274,7 +2285,7 @@
                                 </bpws:sources>
                                 <tibex:inputBindings>
                                     <tibex:inputBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/pe/WriteToLogActivitySchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FaultDetails&quot;/>&lt;xsl:template name=&quot;LogErr-input&quot; match=&quot;/&quot;>&lt;tns7:ActivityInput>&lt;message>&lt;xsl:value-of select=&quot;concat(&amp;quot;ERROR : &amp;quot;, $FaultDetails/MsgCode,&amp;quot; - &amp;quot;,$FaultDetails/Msg)&quot;/>&lt;/message>&lt;/tns7:ActivityInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/pe/WriteToLogActivitySchema&quot; version=&quot;2.0&quot;>&lt;xsl:template name=&quot;LogErr-input&quot; match=&quot;/&quot;>&lt;tns7:ActivityInput>&lt;message>&lt;xsl:value-of select=&quot;&amp;quot;ERROR&amp;quot;&quot;/>&lt;/message>&lt;/tns7:ActivityInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                 </tibex:inputBindings>
                                 <tibex:config>
                                     <bwext:BWActivity
@@ -2307,7 +2318,7 @@
                                 </bpws:targets>
                                 <tibex:inputBindings>
                                     <tibex:inputBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;FilePoller&quot;/>&#xa;    &lt;xsl:template name=&quot;MoveToEDIFailed-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns5:RenameActivityConfig>&#xa;            &lt;fromFileName>&#xa;                &lt;xsl:value-of select=&quot;$FilePoller/fileInfo/fullName&quot;/>&#xa;            &lt;/fromFileName>&#xa;            &lt;toFileName>&#xa;                &lt;xsl:value-of select=&quot;concat(&amp;quot;C:\Users\gianlucapagani\Desktop\EDI\EDIFailed\&amp;quot;, $FilePoller/fileInfo/fileName, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;))&quot;/>&#xa;            &lt;/toFileName>&#xa;        &lt;/tns5:RenameActivityConfig>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FilePoller&quot;/>&lt;xsl:param name=&quot;pathFailed&quot;/>&lt;xsl:template name=&quot;MoveToEDIFailed-input&quot; match=&quot;/&quot;>&lt;tns5:RenameActivityConfig>&lt;fromFileName>&lt;xsl:value-of select=&quot;$FilePoller/fileInfo/fullName&quot;/>&lt;/fromFileName>&lt;toFileName>&lt;xsl:value-of select=&quot;concat($pathFailed,format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;),&amp;quot;_&amp;quot;, $FilePoller/fileInfo/fileName)&quot;/>&lt;/toFileName>&lt;/tns5:RenameActivityConfig>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                 </tibex:inputBindings>
                                 <tibex:config>
                                     <bwext:BWActivity
@@ -2430,7 +2441,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns1=&quot;http://www.tibco.com/EDI/translator&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;FilePoller&quot;/>&#xa;    &lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&#xa;    &lt;xsl:template name=&quot;Translator-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:translatorInput>&#xa;            &lt;input>&#xa;                &lt;xsl:value-of select=&quot;$FilePoller/fileContent/textContent&quot;/>&#xa;            &lt;/input>&#xa;            &lt;map_name>&#xa;                &lt;xsl:value-of select=&quot;concat($EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeVersionNumber,$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeReleaseNumber,'_',$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier,'_E.map')&quot;/>&#xa;            &lt;/map_name>&#xa;        &lt;/tns1:translatorInput>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns1=&quot;http://www.tibco.com/EDI/translator&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FilePoller&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:template name=&quot;Translator-input&quot; match=&quot;/&quot;>&lt;tns1:translatorInput>&lt;input>&lt;xsl:value-of select=&quot;$FilePoller/fileContent/textContent&quot;/>&lt;/input>&lt;map_name>&lt;xsl:value-of select=&quot;concat($EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeVersionNumber,$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeReleaseNumber,'_',$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier,'_EX.map')&quot;/>&lt;/map_name>&lt;/tns1:translatorInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
@@ -2531,7 +2542,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:param name=&quot;separator&quot;/>&lt;xsl:template name=&quot;WriteFileHeader-input&quot; match=&quot;/&quot;>&lt;tns5:WriteActivityInputTextClass>&lt;fileName>&lt;xsl:value-of select=&quot;concat(&amp;quot;C:\Users\gianlucapagani\Desktop\EDI\OutFile\csv\&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns3:documentEntry[1]/tns3:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;.csv&amp;quot;)&quot;/>&lt;/fileName>&lt;textContent>&lt;xsl:value-of select=&quot;concat(&amp;quot;OrderID&amp;quot;,$separator,&amp;quot;CustomerID&amp;quot;,$separator,&amp;quot;ArticleID&amp;quot;,$separator,&amp;quot;ArticleDescription&amp;quot;,$separator,&amp;quot;ArticleQuantity&amp;quot;,&amp;quot;&amp;#xA;&amp;quot;)&quot;/>&lt;/textContent>&lt;/tns5:WriteActivityInputTextClass>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:param name=&quot;separator&quot;/>&lt;xsl:param name=&quot;pathOutCsv&quot;/>&lt;xsl:template name=&quot;WriteCSVHeader-input&quot; match=&quot;/&quot;>&lt;tns5:WriteActivityInputTextClass>&lt;fileName>&lt;xsl:value-of select=&quot;concat($pathOutCsv, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns3:documentEntry[1]/tns3:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;.csv&amp;quot;)&quot;/>&lt;/fileName>&lt;textContent>&lt;xsl:value-of select=&quot;concat(&amp;quot;OrderID&amp;quot;,$separator,&amp;quot;CustomerID&amp;quot;,$separator,&amp;quot;ArticleID&amp;quot;,$separator,&amp;quot;ArticleDescription&amp;quot;,$separator,&amp;quot;ArticleQuantity&amp;quot;,&amp;quot;&amp;#xA;&amp;quot;)&quot;/>&lt;/textContent>&lt;/tns5:WriteActivityInputTextClass>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity activityTypeID="bw.file.write"
@@ -2688,7 +2699,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;FilePoller&quot;/>&#xa;    &lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&#xa;    &lt;xsl:param name=&quot;Mapper&quot;/>&#xa;    &lt;xsl:template name=&quot;MoveToEDIWorked-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns5:RenameActivityConfig>&#xa;            &lt;fromFileName>&#xa;                &lt;xsl:value-of select=&quot;$FilePoller/fileInfo/fullName&quot;/>&#xa;            &lt;/fromFileName>&#xa;            &lt;toFileName>&#xa;                &lt;xsl:value-of select=&quot;concat(&amp;quot;C:\Users\gianlucapagani\Desktop\EDI\OutFile\EDIWorked\&amp;quot;, $FilePoller/fileInfo/fileName, &amp;quot;_&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns3:documentEntry[1]/tns3:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;))&quot;/>&#xa;            &lt;/toFileName>&#xa;        &lt;/tns5:RenameActivityConfig>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FilePoller&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:param name=&quot;pathHistory&quot;/>&lt;xsl:template name=&quot;MoveToEDIWorked-input&quot; match=&quot;/&quot;>&lt;tns5:RenameActivityConfig>&lt;fromFileName>&lt;xsl:value-of select=&quot;$FilePoller/fileInfo/fullName&quot;/>&lt;/fromFileName>&lt;toFileName>&lt;xsl:value-of select=&quot;concat($pathHistory, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns3:documentEntry[1]/tns3:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;),&amp;quot;_&amp;quot;,$FilePoller/fileInfo/fileName)&quot;/>&lt;/toFileName>&lt;/tns5:RenameActivityConfig>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
@@ -2720,7 +2731,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/pe/WriteToLogActivitySchema&quot; version=&quot;2.0&quot;>&lt;xsl:template name=&quot;Log1-input&quot; match=&quot;/&quot;>&lt;tns7:ActivityInput>&lt;message>&lt;xsl:value-of select=&quot;&amp;quot;SUCCESS&amp;quot;&quot;/>&lt;/message>&lt;/tns7:ActivityInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/pe/WriteToLogActivitySchema&quot; version=&quot;2.0&quot;>&lt;xsl:template name=&quot;LogStart-input&quot; match=&quot;/&quot;>&lt;tns7:ActivityInput>&lt;message>&lt;xsl:value-of select=&quot;&amp;quot;START&amp;quot;&quot;/>&lt;/message>&lt;/tns7:ActivityInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
@@ -2750,7 +2761,7 @@
                     </bpws:targets>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/pe/WriteToLogActivitySchema&quot; version=&quot;2.0&quot;>&lt;xsl:template name=&quot;Log2-input&quot; match=&quot;/&quot;>&lt;tns7:ActivityInput>&lt;message>&lt;xsl:value-of select=&quot;&amp;quot;COMPLETED&amp;quot;&quot;/>&lt;/message>&lt;/tns7:ActivityInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/pe/WriteToLogActivitySchema&quot; version=&quot;2.0&quot;>&lt;xsl:template name=&quot;LogEnd-input&quot; match=&quot;/&quot;>&lt;tns7:ActivityInput>&lt;message>&lt;xsl:value-of select=&quot;&amp;quot;SUCCESS&amp;quot;&quot;/>&lt;/message>&lt;/tns7:ActivityInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity

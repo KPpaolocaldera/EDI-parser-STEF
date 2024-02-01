@@ -101,8 +101,8 @@
 			<useLookupValue>false</useLookupValue>
 		</globalVariable>
 		<globalVariable>
-			<name>/Project/File/pathOutWorked</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\OutFile\EDIWorked\</value>
+			<name>/Project/File/pathHistory</name>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\History\</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
@@ -111,7 +111,7 @@
 		</globalVariable>
 		<globalVariable>
 			<name>/Project/File/pathFailed</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\EDIFailed\</value>
+			<value>C:\Users\gianlucapagani\Desktop\EDI\Failed\</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>

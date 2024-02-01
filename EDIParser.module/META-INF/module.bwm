@@ -11,7 +11,7 @@
   <sca:property xmi:id="_LXOm8b6WEe6Sy4ZFyo7KmA" name="BW.MODULE.NAME" type="XMLSchema:string" scalable="true"/>
   <sca:property xmi:id="_HBWJEMCJEe6zG70sf9lR6Q" name="/Project/File/fullPathIn" type="XMLSchema:string" publicAccess="true" scalable="true"/>
   <sca:property xmi:id="_JoYcwMCJEe6zG70sf9lR6Q" name="/Project/File/pathOutCsv" type="XMLSchema:string" publicAccess="true" scalable="true"/>
-  <sca:property xmi:id="_1ccLEMCMEe6zG70sf9lR6Q" name="/Project/File/pathOutWorked" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_1ccLEMCMEe6zG70sf9lR6Q" name="/Project/File/pathHistory" type="XMLSchema:string" publicAccess="true" scalable="true"/>
   <sca:property xmi:id="_xqfDwMCJEe6zG70sf9lR6Q" name="/Project/File/pathFailed" type="XMLSchema:string" publicAccess="true" scalable="true"/>
   <sca:property xmi:id="_H7KF8MCJEe6zG70sf9lR6Q" name="/Project/File/separator" type="XMLSchema:string" publicAccess="true" scalable="true"/>
   <sca:property xmi:id="_FsaWcMCJEe6zG70sf9lR6Q" name="/Project/Poller/pollingInterval" type="XMLSchema:int" publicAccess="true" scalable="true"/>
