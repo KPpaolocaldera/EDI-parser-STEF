@@ -1264,7 +1264,6 @@
                                     <type href="http://ns.tibco.com/bw/palette/file#//FilePoller"/>
                                     <value contentAs="text"
                                     createEvent="true"
-                                    deleteEvent="true"
                                     encodingUsed="UTF-8"
                                     fileName="C:\Users\paolocaldera\Downloads\edi_hanmov.txt"
                                     includeCurrent="true"

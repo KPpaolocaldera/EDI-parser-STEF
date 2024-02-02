@@ -2573,7 +2573,6 @@
                                     <type href="http://ns.tibco.com/bw/palette/file#//FilePoller"/>
                                     <value contentAs="text"
                                     createEvent="true"
-                                    includeCurrent="true"
                                     mode="files-and-directories"
                                     modifyEvent="true"
                                     sortby="File Name"
@@ -2738,8 +2737,7 @@
                     </tibex:config>
                 </tibex:activityExtension>
             </bpws:extensionActivity>
-            <bpws:scope name="Iterate" tibex:group="iterate"
-                tibex:indexToGlobal="false" tibex:xpdlId="450c38f0-a0c3-40a4-bf5f-f5827aa74bdf">
+            <bpws:scope name="Iterate" tibex:group="iterate" tibex:xpdlId="450c38f0-a0c3-40a4-bf5f-f5827aa74bdf">
                 <bpws:targets>
                     <bpws:target linkName="WriteFileToIterate"/>
                 </bpws:targets>
@@ -3048,7 +3046,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:ns2=&quot;http://www.tibco.com/ns/Foresight/2010/20/D96A_DESADV&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;ParseDESADV&quot;/>&lt;xsl:template name=&quot;documentEntries&quot; match=&quot;/&quot;>&lt;tns3:documentEntries>&lt;xsl:for-each select=&quot;$ParseDESADV/ns2:L-CPS_37/ns2:L-LIN_55&quot;>&lt;tns3:documentEntry>&lt;tns3:orderId>&lt;xsl:value-of select=&quot;../../ns2:S-BGM_2/ns2:E-1004_2_02&quot;/>&lt;/tns3:orderId>&lt;xsl:variable name=&quot;var&quot; select=&quot;$ParseDESADV/ns2:L-NAD_10/ns2:S-NAD_11/ns2:E-3035_11_01&quot;/>&lt;tns3:customerId>&lt;xsl:value-of select=&quot;../../ns2:L-NAD_10[$var=&amp;quot;SE&amp;quot;]/ns2:S-NAD_11/ns2:C-C082_11_02/ns2:E-3039_11_02.01&quot;/>&lt;/tns3:customerId>&lt;tns3:articleId>&lt;xsl:value-of select=&quot;ns2:S-LIN_56/ns2:C-C212_56_03/ns2:E-7140_56_03.01&quot;/>&lt;/tns3:articleId>&lt;tns3:articleDescription>&lt;xsl:value-of select=&quot;ns2:S-IMD_58[1]/ns2:C-C273_58_03/ns2:E-7008_58_03.04&quot;/>&lt;/tns3:articleDescription>&lt;tns3:articleQuantity>&lt;xsl:value-of select=&quot;xsd:integer(ns2:S-QTY_60[1]/ns2:C-C186_60_01/ns2:E-6063_60_01.01)&quot;/>&lt;/tns3:articleQuantity>&lt;/tns3:documentEntry>&lt;/xsl:for-each>&lt;/tns3:documentEntries>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:ns2=&quot;http://www.tibco.com/ns/Foresight/2010/20/D96A_DESADV&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;ParseDESADV&quot;/>&#xa;    &lt;xsl:template name=&quot;documentEntries&quot; match=&quot;/&quot;>&#xa;        &lt;tns3:documentEntries>&#xa;            &lt;xsl:for-each select=&quot;$ParseDESADV/ns2:L-UNB/ns2:L-UNG/ns2:L-UNH/ns2:L-CPS_37/ns2:L-LIN_55&quot;>&#xa;                &lt;tns3:documentEntry>&#xa;                    &lt;tns3:orderId>&#xa;                        &lt;xsl:value-of select=&quot;$ParseDESADV/ns2:L-UNB[1]/ns2:L-UNG[1]/ns2:L-UNH[1]/ns2:S-BGM_2/ns2:E-1004_2_02&quot;/>&#xa;                    &lt;/tns3:orderId>&#xa;                    &lt;tns3:customerId>&#xa;                        &lt;xsl:value-of select=&quot;$ParseDESADV/ns2:L-UNB[1]/ns2:L-UNG[1]/ns2:L-UNH[1]/ns2:L-NAD_10[1]/ns2:S-NAD_11/ns2:C-C082_11_02/ns2:E-3039_11_02.01&quot;/>&#xa;                    &lt;/tns3:customerId>&#xa;                    &lt;tns3:articleId>&#xa;                        &lt;xsl:value-of select=&quot;current()/ns2:S-LIN_56/ns2:C-C212_56_03/ns2:E-7140_56_03.01&quot;/>&#xa;                    &lt;/tns3:articleId>&#xa;                    &lt;tns3:articleDescription>&#xa;                        &lt;xsl:value-of select=&quot;current()/ns2:S-IMD_58[1]/ns2:C-C273_58_03/ns2:E-7008_58_03.04&quot;/>&#xa;                    &lt;/tns3:articleDescription>&#xa;                    &lt;tns3:articleQuantity>&#xa;                        &lt;xsl:value-of select=&quot;xsd:integer(current()/ns2:S-QTY_60[1]/ns2:C-C186_60_01/ns2:E-6063_60_01.01)&quot;/>&#xa;                    &lt;/tns3:articleQuantity>&#xa;                &lt;/tns3:documentEntry>&#xa;            &lt;/xsl:for-each>&#xa;        &lt;/tns3:documentEntries>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
