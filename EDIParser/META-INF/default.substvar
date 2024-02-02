@@ -102,7 +102,7 @@
 		</globalVariable>
 		<globalVariable>
 			<name>//EDIParser.module///Project/File/fullPathIn</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\InFile\*.txt</value>
+			<value>C:\Files\EDI\InFile\*.txt</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
@@ -111,7 +111,7 @@
 		</globalVariable>
 		<globalVariable>
 			<name>//EDIParser.module///Project/File/pathFailed</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\Failed\</value>
+			<value>C:\Files\EDI\Failed\</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
@@ -120,7 +120,7 @@
 		</globalVariable>
 		<globalVariable>
 			<name>//EDIParser.module///Project/File/pathOutCsv</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\OutFile\csv\</value>
+			<value>C:\Files\EDI\OutFile\csv\</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
@@ -129,7 +129,7 @@
 		</globalVariable>
 		<globalVariable>
 			<name>//EDIParser.module///Project/File/pathHistory</name>
-			<value>C:\Users\gianlucapagani\Desktop\EDI\History\</value>
+			<value>C:\Files\EDI\History\</value>
 			<deploymentSettable>false</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
