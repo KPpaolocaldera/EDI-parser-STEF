@@ -2252,7 +2252,7 @@
                                 </bpws:targets>
                                 <tibex:inputBindings>
                                     <tibex:inputBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns6=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FilePoller&quot;/>&lt;xsl:param name=&quot;pathFailed&quot;/>&lt;xsl:template name=&quot;RenameFile-input&quot; match=&quot;/&quot;>&lt;tns6:RenameActivityConfig>&lt;fromFileName>&lt;xsl:value-of select=&quot;$FilePoller/fileInfo/fullName&quot;/>&lt;/fromFileName>&lt;toFileName>&lt;xsl:value-of select=&quot;concat($pathFailed, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;),&amp;quot;_&amp;quot;, $FilePoller/fileInfo/fileName)&quot;/>&lt;/toFileName>&lt;/tns6:RenameActivityConfig>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns6=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FilePoller&quot;/>&lt;xsl:param name=&quot;pathFailed&quot;/>&lt;xsl:template name=&quot;RenameFile-input&quot; match=&quot;/&quot;>&lt;tns6:RenameActivityConfig>&lt;fromFileName>&lt;xsl:value-of select=&quot;$FilePoller/fileInfo/fullName&quot;/>&lt;/fromFileName>&lt;toFileName>&lt;xsl:value-of select=&quot;concat($pathFailed, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;),&amp;quot;-&amp;quot;, $FilePoller/fileInfo/fileName)&quot;/>&lt;/toFileName>&lt;/tns6:RenameActivityConfig>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                 </tibex:inputBindings>
                                 <tibex:config>
                                     <bwext:BWActivity
@@ -2489,9 +2489,7 @@
                     </tibex:config>
                 </tibex:activityExtension>
             </bpws:extensionActivity>
-            <bpws:scope name="Iterate" tibex:group="iterate"
-                tibex:indexOriginalName="index"
-                tibex:indexToGlobal="false" tibex:xpdlId="723d2384-9ffb-4d2a-a8ba-887dd84a9221">
+            <bpws:scope name="Iterate" tibex:group="iterate" tibex:xpdlId="723d2384-9ffb-4d2a-a8ba-887dd84a9221">
                 <bpws:targets>
                     <bpws:target linkName="MapperToForEach"/>
                 </bpws:targets>
@@ -2622,7 +2620,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns6=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns4=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FilePoller&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:param name=&quot;pathHistory&quot;/>&lt;xsl:template name=&quot;MoveToEDIWorked-input&quot; match=&quot;/&quot;>&lt;tns6:RenameActivityConfig>&lt;fromFileName>&lt;xsl:value-of select=&quot;$FilePoller/fileInfo/fullName&quot;/>&lt;/fromFileName>&lt;toFileName>&lt;xsl:value-of select=&quot;concat( $pathHistory,  format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;_&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns4:documentEntry[1]/tns4:orderId, &amp;quot;_&amp;quot;, $FilePoller/fileInfo/fileName)&quot;/>&lt;/toFileName>&lt;/tns6:RenameActivityConfig>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns6=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns4=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;FilePoller&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:param name=&quot;pathHistory&quot;/>&lt;xsl:template name=&quot;MoveToEDIWorked-input&quot; match=&quot;/&quot;>&lt;tns6:RenameActivityConfig>&lt;fromFileName>&lt;xsl:value-of select=&quot;$FilePoller/fileInfo/fullName&quot;/>&lt;/fromFileName>&lt;toFileName>&lt;xsl:value-of select=&quot;concat( $pathHistory,  format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;_&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns4:documentEntry[1]/tns4:orderId, &amp;quot;-&amp;quot;, $FilePoller/fileInfo/fileName)&quot;/>&lt;/toFileName>&lt;/tns6:RenameActivityConfig>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
