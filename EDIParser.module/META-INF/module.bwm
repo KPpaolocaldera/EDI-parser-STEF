@@ -24,4 +24,7 @@
   <sca:component xmi:id="_33RfQMEPEe6D27efY7mYpA" name="ComponentEDIParser_DB" compositeext:version="1.0.0.qualifier">
     <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_33RfQcEPEe6D27efY7mYpA" processName="ediparser.db.EDIParser_DB"/>
   </sca:component>
+  <sca:component xmi:id="_0OH1wMGoEe6OsLThIpmIfQ" name="ComponentEDIParser_Reverse" compositeext:version="1.0.0.qualifier">
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_0OH1wcGoEe6OsLThIpmIfQ" processName="ediparser.reverse.EDIParser_Reverse"/>
+  </sca:component>
 </sca:composite>
