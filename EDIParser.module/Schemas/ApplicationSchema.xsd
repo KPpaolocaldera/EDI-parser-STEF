@@ -41,6 +41,7 @@
 	<complexType name="ediParserResponse_type">
 		<sequence>
 			<element name="outcome" type="boolean" />
+			<element name="errorDescription" type="string" minOccurs="0" />
 			<element name="historyDirectoryName" type="string" minOccurs="0" />
 			<element name="errorDirectoryName" type="string" minOccurs="0" />
 		</sequence>

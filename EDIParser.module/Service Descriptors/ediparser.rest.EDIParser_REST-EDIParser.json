@@ -44,6 +44,9 @@
         "outcome" : {
           "type" : "boolean"
         },
+        "errorDescription" : {
+          "type" : "string"
+        },
         "historyDirectoryName" : {
           "type" : "string"
         },
