@@ -4,6 +4,9 @@
     <sca:interface.wsdl xmi:id="_gJR8gsQbEe6M-La0rKskpA" interface="http://xmlns.example.com/20240205124128PLT#wsdl.interface(ediparser)" scaext:wsdlLocation="../Processes/ediparser/rest/EDIParser_REST.bwp"/>
     <scaext:binding xsi:type="rest:RestServiceBinding" xmi:id="_gJgmAMQbEe6M-La0rKskpA" name="RestService" path="/ediparser" docBasePath="http://localhost:7777/EDIParser.module" docResourcePath="EDIParser" basePath="/" connector="ediparser.module.EDIParser" structuredData="true" technologyVersion="2.0" implementation="Service Descriptors/ediparser.rest.EDIParser_REST-EDIParser.json">
       <operation xmi:id="_gMH1IMQbEe6M-La0rKskpA" operationName="post" nickname="post-ediparser" httpMethod="POST" notes="postEDIParser" responseStyle="element" requestStyle="element" outputPartName="item">
+        <parameters xmi:id="_-xUQQMQwEe6abIi79Ayb_w">
+          <parameterMapping xmi:id="_-xUQQcQwEe6abIi79Ayb_w" parameterName="storageType" parameterType="Query" dataType="string" required="true" description=""/>
+        </parameters>
         <clientFormat>json</clientFormat>
         <clientRequestFormat>json</clientRequestFormat>
       </operation>

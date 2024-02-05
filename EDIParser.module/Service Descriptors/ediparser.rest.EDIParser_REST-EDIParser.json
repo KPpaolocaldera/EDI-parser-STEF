@@ -24,6 +24,12 @@
             "$ref" : "#/definitions/ediParserRequest"
           },
           "required" : true
+        }, {
+          "name" : "storageType",
+          "in" : "query",
+          "description" : "",
+          "type" : "string",
+          "required" : true
         } ],
         "responses" : {
           "200" : {
