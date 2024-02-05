@@ -22,4 +22,34 @@
 			<element name="articleQuantity" type="integer" />
 		</sequence>
 	</complexType>
+	
+	
+	
+	
+	<!-- REST -->
+	
+	<element name="ediParserRequest" type="tns:ediParserRequest_type" />
+	<element name="ediParserResponse" type="tns:ediParserResponse_type" />
+	
+	<complexType name="ediParserRequest_type">
+		<sequence>
+			<element name="input" type="tns:directory_type" />
+			<element name="output" type="tns:directory_type" minOccurs="0" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="ediParserResponse_type">
+		<sequence>
+			<element name="outcome" type="boolean" />
+			<element name="historyDirectoryName" type="string" minOccurs="0" />
+			<element name="errorDirectoryName" type="string" minOccurs="0" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="directory_type">
+		<sequence>
+			<element name="directoryName" type="string" />
+			<element name="fileName" type="string" />
+		</sequence>
+	</complexType>
 </schema>

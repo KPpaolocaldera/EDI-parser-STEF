@@ -1,0 +1,80 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0",
+    "title" : "EDIParser",
+    "description" : "EDIParser REST service, implementing an EDIFACT parsing logic"
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/ediparser" : {
+      "post" : {
+        "summary" : "postEDIParser",
+        "description" : "postEDIParser",
+        "operationId" : "post-ediparser",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "description" : "",
+          "schema" : {
+            "$ref" : "#/definitions/ediParserRequest"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "a ediParserResponse to be returned",
+            "schema" : {
+              "$ref" : "#/definitions/ediParserResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "ediParserResponse" : {
+      "type" : "object",
+      "required" : [ "outcome" ],
+      "properties" : {
+        "outcome" : {
+          "type" : "boolean"
+        },
+        "historyDirectoryName" : {
+          "type" : "string"
+        },
+        "errorDirectoryName" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ediParserRequest" : {
+      "type" : "object",
+      "required" : [ "input" ],
+      "properties" : {
+        "input" : {
+          "$ref" : "#/definitions/directory_type"
+        },
+        "output" : {
+          "$ref" : "#/definitions/directory_type"
+        }
+      }
+    },
+    "directory_type" : {
+      "type" : "object",
+      "required" : [ "fileName", "directoryName" ],
+      "properties" : {
+        "directoryName" : {
+          "type" : "string"
+        },
+        "fileName" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{"records": [{
+    "jsonSchemaLocation": "/EDIParser.module/Service Descriptors/ediparser.rest.EDIParser_REST-EDIParser.json",
+    "conversionType": "linked",
+    "xsdSchemaTargetNamespace": "http://www.keypartner.com/ApplicationSchema"
+}]}

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sca:composite xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:BW="http://xsd.tns.tibco.com/amf/models/sca/implementationtype/BW" xmlns:XMLSchema="http://www.w3.org/2001/XMLSchema" xmlns:compositeext="http://schemas.tibco.com/amx/3.0/compositeext" xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" xmlns:scaext="http://xsd.tns.tibco.com/amf/models/sca/extensions" xmi:id="_Hs7fcb6WEe6Sy4ZFyo7KmA" targetNamespace="http://tns.tibco.com/bw/composite/EDIParser.module" name="EDIParser.module" compositeext:version="1.0.0" compositeext:formatVersion="2">
+<sca:composite xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:BW="http://xsd.tns.tibco.com/amf/models/sca/implementationtype/BW" xmlns:XMLSchema="http://www.w3.org/2001/XMLSchema" xmlns:compositeext="http://schemas.tibco.com/amx/3.0/compositeext" xmlns:rest="http://xsd.tns.tibco.com/bw/models/binding/rest" xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" xmlns:scact="http://xsd.tns.tibco.com/amf/models/sca/componentType" xmlns:scaext="http://xsd.tns.tibco.com/amf/models/sca/extensions" xmi:id="_Hs7fcb6WEe6Sy4ZFyo7KmA" targetNamespace="http://tns.tibco.com/bw/composite/EDIParser.module" name="EDIParser.module" compositeext:version="1.0.0" compositeext:formatVersion="2">
+  <sca:service xmi:id="_gJNEAMQbEe6M-La0rKskpA" name="ediparser" promote="ComponentEDIParser_REST/ediparser">
+    <sca:interface.wsdl xmi:id="_gJR8gsQbEe6M-La0rKskpA" interface="http://xmlns.example.com/20240205124128PLT#wsdl.interface(ediparser)" scaext:wsdlLocation="../Processes/ediparser/rest/EDIParser_REST.bwp"/>
+    <scaext:binding xsi:type="rest:RestServiceBinding" xmi:id="_gJgmAMQbEe6M-La0rKskpA" name="RestService" path="/ediparser" docBasePath="http://localhost:7777/EDIParser.module" docResourcePath="EDIParser" basePath="/" connector="ediparser.module.EDIParser" structuredData="true" technologyVersion="2.0" implementation="Service Descriptors/ediparser.rest.EDIParser_REST-EDIParser.json">
+      <operation xmi:id="_gMH1IMQbEe6M-La0rKskpA" operationName="post" nickname="post-ediparser" httpMethod="POST" notes="postEDIParser" responseStyle="element" requestStyle="element" outputPartName="item">
+        <clientFormat>json</clientFormat>
+        <clientRequestFormat>json</clientRequestFormat>
+      </operation>
+      <parameters xmi:id="_gNlNs8QbEe6M-La0rKskpA"/>
+      <advancedConfig xmi:id="_gJgmAcQbEe6M-La0rKskpA" blockingQueueSize="8192"/>
+    </scaext:binding>
+    <scact:bindingAdjunct xmi:id="_gMH1IcQbEe6M-La0rKskpA" bindingName="RestService"/>
+  </sca:service>
   <sca:property xmi:id="_LWp_ML6WEe6Sy4ZFyo7KmA" name="BW.DEPLOYMENTUNIT.TYPE" type="XMLSchema:string" scalable="true"/>
   <sca:property xmi:id="_LW2McL6WEe6Sy4ZFyo7KmA" name="BW.APPNODE.NAME" type="XMLSchema:string" scalable="true"/>
   <sca:property xmi:id="_LW2Mcb6WEe6Sy4ZFyo7KmA" name="BW.DEPLOYMENTUNIT.NAME" type="XMLSchema:string" scalable="true"/>
@@ -29,5 +41,11 @@
   </sca:component>
   <sca:component xmi:id="_Ox7K8MGxEe6z58m_Xio6_w" name="ComponentEDIParser_2_DB" compositeext:version="1.0.0.qualifier">
     <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_Ox7K8cGxEe6z58m_Xio6_w" processName="ediparser.db.EDIParser_2_DB"/>
+  </sca:component>
+  <sca:component xmi:id="_gI6wIMQbEe6M-La0rKskpA" name="ComponentEDIParser_REST" compositeext:version="1.0.0.qualifier">
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_gI6wIcQbEe6M-La0rKskpA" processName="ediparser.rest.EDIParser_REST"/>
+    <sca:service xmi:id="_gJD6EMQbEe6M-La0rKskpA" name="ediparser">
+      <sca:interface.wsdl xmi:id="_gJD6EcQbEe6M-La0rKskpA" interface="http://xmlns.example.com/20240205124128PLT#wsdl.interface(ediparser)" scaext:wsdlLocation="../Processes/ediparser/rest/EDIParser_REST.bwp"/>
+    </sca:service>
   </sca:component>
 </sca:composite>

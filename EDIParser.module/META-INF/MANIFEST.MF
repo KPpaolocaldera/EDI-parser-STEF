@@ -16,6 +16,8 @@ Require-Capability: com.tibco.bw.model; filter:="(name=bwext)",
  com.tibco.bw.palette; filter:="(name=bw.xml)",
  com.tibco.bw.palette; filter:="(name=bw.parse)",
  com.tibco.bw.sharedresource.model; filter:="(name=bw.dataformat)",
- com.tibco.bw.sharedresource.model; filter:="(name=bw.jdbc)"
+ com.tibco.bw.sharedresource.model; filter:="(name=bw.httpconnector)",
+ com.tibco.bw.sharedresource.model; filter:="(name=bw.jdbc)",
+ com.tibco.bw.binding.model; filter:="(name=bw.rest)"
 TIBCO-BW-ModuleSharedVariables: META-INF/module.msv
 TIBCO-BW-Version: 6.10.0 V23 2023-11-10
