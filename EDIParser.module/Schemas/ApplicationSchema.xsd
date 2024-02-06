@@ -9,7 +9,8 @@
 	
 	<complexType name="documentEntries_type">
 		<sequence>
-			<element name="documentEntry" type="tns:documentEntry_type" minOccurs="0" maxOccurs="unbounded" />
+			<element name="documentEntry" type="tns:documentEntry_type"
+				minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 	
@@ -23,29 +24,48 @@
 		</sequence>
 	</complexType>
 	
+	<complexType name="documentEntry_extended_type">
+		<complexContent>
+			<extension base="tns:documentEntry_type">
+				<sequence>
+					<element name="id" type="string" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
 	
 	
 	
 	<!-- REST -->
 	
-	<element name="ediParserRequest" type="tns:ediParserRequest_type" />
-	<element name="ediParserResponse" type="tns:ediParserResponse_type" />
-	<element name="getItemsInfoResponse" type="tns:getItemsInfoResponse_type" />
-	
-	<complexType name="ediParserRequest_type">
+	<element name="ediParserPostRequest"
+		type="tns:ediParserPostRequest_type" />
+		
+	<element name="ediParserPostResponse"
+		type="tns:ediParserPostResponse_type" />
+		
+	<element name="ediParserGetResponse"
+		type="tns:ediParserGetResponse_type" />
+		
+		
+	<complexType name="ediParserPostRequest_type">
 		<sequence>
 			<element name="input" type="tns:directory_type" />
-			<element name="output" type="tns:directory_type" minOccurs="0" />
+			<element name="output" type="tns:directory_type"
+				minOccurs="0" />
 		</sequence>
 	</complexType>
 	
-	<complexType name="ediParserResponse_type">
+	<complexType name="ediParserPostResponse_type">
 		<sequence>
 			<element name="outcome" type="boolean" />
 			<element name="errorDescription" type="string" minOccurs="0" />
-			<element name="outputDirectoryName" type="string" minOccurs="0" />
-			<element name="historyDirectoryName" type="string" minOccurs="0" />
-			<element name="errorDirectoryName" type="string" minOccurs="0" />
+			<element name="outputDirectoryName" type="string"
+				minOccurs="0" />
+			<element name="historyDirectoryName" type="string"
+				minOccurs="0" />
+			<element name="errorDirectoryName" type="string"
+				minOccurs="0" />
 		</sequence>
 	</complexType>
 	
@@ -56,19 +76,13 @@
 		</sequence>
 	</complexType>
 	
-	<complexType name="getItemsInfoResponse_type">
+	<complexType name="ediParserGetResponse_type">
 		<sequence>
-			<element name="getItemInfoResponse" type="tns:getItemInfoResponse_type" minOccurs="0" maxOccurs="unbounded" />
+			<element name="outcome" type="boolean" />
+			<element name="errorDescription" type="string" minOccurs="0" />
+			<element name="documentEntry" type="tns:documentEntry_extended_type"
+				minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 	
-	<complexType name="getItemInfoResponse_type">
-		<sequence>
-			<element name="messageType" type="string" />
-			<element name="orderNumber" type="string" />
-			<element name="customerCode" type="string" />
-			<element name="artcileCode" type="string" />
-			<element name="articleDescription" type="integer" />
-		</sequence>
-	</complexType>
 </schema>

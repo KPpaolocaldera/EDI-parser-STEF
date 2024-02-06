@@ -14,6 +14,7 @@
     xmlns:ns14="http://tns.tibco.com/bw/palette/internal/activityerror+bw.file.rename"
     xmlns:ns15="http://www.tibco.com/ns/Foresight/2010/20/D96A_DESADV"
     xmlns:ns16="http://schemas.tibco.com/bw/plugins/basic/6.0/Exceptions"
+    xmlns:ns17="http://tns.tibco.com/bw/palette/internal/activityerror+com.tibco.bw.core.design.process.editor.Activity_4002_Throw"
     xmlns:ns2="http://tns.tibco.com/bw/palette/internal/activityerror+bw.edi.EDIFACTPrescanner"
     xmlns:ns3="http://www.tibco.com/EDI/translator"
     xmlns:ns4="http://tns.tibco.com/bw/palette/internal/activityerror+bw.edi.Translator"
@@ -1185,6 +1186,18 @@
                     </sequence>
                 </complexType>
             </element>
+        </schema>
+        <schema elementFormDefault="unqualified"
+            targetNamespace="http://tns.tibco.com/bw/palette/internal/activityerror+com.tibco.bw.core.design.process.editor.Activity_4002_Throw"
+            xmlns="http://www.w3.org/2001/XMLSchema"
+            xmlns:Q1="http://schemas.tibco.com/bw/plugins/basic/6.0/Exceptions" xmlns:tns="http://tns.tibco.com/bw/palette/internal/activityerror+com.tibco.bw.core.design.process.editor.Activity_4002_Throw">
+            <import namespace="http://schemas.tibco.com/bw/plugins/basic/6.0/Exceptions"/>
+            <element name="ActivityErrorData" type="tns:ActivityErrorDataType"/>
+            <complexType name="ActivityErrorDataType">
+                <choice>
+                    <element maxOccurs="1" minOccurs="0" ref="Q1:DefaultFault"/>
+                </choice>
+            </complexType>
         </schema>
     </tibex:Types>
     <tibex:ProcessInfo callable="false" createdBy="gianlucapagani"
@@ -2444,6 +2457,10 @@
             name="_error_ParseXml1" sca-bpel:internal="true"/>
         <bpws:variable element="ns16:DefaultFault" name="Throw-input" sca-bpel:internal="true"/>
         <bpws:variable element="ns11:documentEntries" name="documentEntries"/>
+        <bpws:variable element="ns6:ActivityErrorData"
+            name="_error_ParseHANMOV" sca-bpel:internal="true"/>
+        <bpws:variable element="ns17:ActivityErrorData"
+            name="_error_Throw" sca-bpel:internal="true"/>
     </bpws:variables>
     <bpws:extensions>
         <bpws:extension mustUnderstand="no" namespace="http://www.eclipse.org/gmf/runtime/1.0.2/notation"/>

@@ -21,7 +21,7 @@
           "in" : "body",
           "description" : "",
           "schema" : {
-            "$ref" : "#/definitions/ediParserRequest"
+            "$ref" : "#/definitions/ediParserPostRequest"
           },
           "required" : true
         }, {
@@ -33,21 +33,21 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "a ediParserResponse to be returned",
+            "description" : "a ediParserPostResponse to be returned",
             "schema" : {
-              "$ref" : "#/definitions/ediParserResponse"
+              "$ref" : "#/definitions/ediParserPostResponse"
             }
           },
           "400" : {
             "description" : "Bad Request",
             "schema" : {
-              "$ref" : "#/definitions/ediParserResponse"
+              "$ref" : "#/definitions/ediParserPostResponse"
             }
           },
           "500" : {
             "description" : "Internal Server Error",
             "schema" : {
-              "$ref" : "#/definitions/ediParserResponse"
+              "$ref" : "#/definitions/ediParserPostResponse"
             }
           }
         }
@@ -73,9 +73,15 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "a getItemsInfoResponse to be returned",
+            "description" : "a ediParserGetResponse to be returned",
             "schema" : {
-              "$ref" : "#/definitions/getItemsInfoResponse"
+              "$ref" : "#/definitions/ediParserGetResponse"
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "schema" : {
+              "$ref" : "#/definitions/ediParserGetResponse"
             }
           }
         }
@@ -83,7 +89,63 @@
     }
   },
   "definitions" : {
-    "ediParserResponse" : {
+    "documentEntry" : {
+      "type" : "object",
+      "required" : [ "articleQuantity", "orderId", "articleDescription", "customerId", "articleId", "id" ],
+      "properties" : {
+        "orderId" : {
+          "type" : "string"
+        },
+        "customerId" : {
+          "type" : "string"
+        },
+        "articleId" : {
+          "type" : "string"
+        },
+        "articleDescription" : {
+          "type" : "string"
+        },
+        "articleQuantity" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "directory_type" : {
+      "type" : "object",
+      "required" : [ "fileName", "directoryName" ],
+      "properties" : {
+        "directoryName" : {
+          "type" : "string"
+        },
+        "fileName" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ediParserGetResponse" : {
+      "type" : "object",
+      "required" : [ "outcome" ],
+      "properties" : {
+        "outcome" : {
+          "type" : "boolean"
+        },
+        "errorDescription" : {
+          "type" : "string"
+        },
+        "documentEntry" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/documentEntry",
+            "uniqueItems" : false
+          }
+        }
+      }
+    },
+    "ediParserPostResponse" : {
       "type" : "object",
       "required" : [ "outcome" ],
       "properties" : {
@@ -104,7 +166,7 @@
         }
       }
     },
-    "ediParserRequest" : {
+    "ediParserPostRequest" : {
       "type" : "object",
       "required" : [ "input" ],
       "properties" : {
@@ -113,52 +175,6 @@
         },
         "output" : {
           "$ref" : "#/definitions/directory_type"
-        }
-      }
-    },
-    "directory_type" : {
-      "type" : "object",
-      "required" : [ "fileName", "directoryName" ],
-      "properties" : {
-        "directoryName" : {
-          "type" : "string"
-        },
-        "fileName" : {
-          "type" : "string"
-        }
-      }
-    },
-    "getItemInfoResponse" : {
-      "type" : "object",
-      "required" : [ "orderNumber", "messageType", "artcileCode", "articleDescription", "customerCode" ],
-      "properties" : {
-        "messageType" : {
-          "type" : "string"
-        },
-        "orderNumber" : {
-          "type" : "string"
-        },
-        "customerCode" : {
-          "type" : "string"
-        },
-        "artcileCode" : {
-          "type" : "string"
-        },
-        "articleDescription" : {
-          "type" : "integer",
-          "format" : "int32"
-        }
-      }
-    },
-    "getItemsInfoResponse" : {
-      "type" : "object",
-      "properties" : {
-        "getItemInfoResponse" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/getItemInfoResponse",
-            "uniqueItems" : false
-          }
         }
       }
     }

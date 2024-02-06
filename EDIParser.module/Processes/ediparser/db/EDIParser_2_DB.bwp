@@ -13,6 +13,7 @@
     xmlns:ns13="http://tns.tibco.com/bw/palette/internal/activityerror+bw.file.rename"
     xmlns:ns14="http://schemas.tibco.com/bw/plugins/basic/6.0/Exceptions"
     xmlns:ns15="http://www.tibco.com/ns/Foresight/2010/20/D96A_DESADV"
+    xmlns:ns16="http://tns.tibco.com/bw/palette/internal/activityerror+com.tibco.bw.core.design.process.editor.Activity_4002_Throw"
     xmlns:ns2="http://www.tibco.com/EDI/EDIFACTPrescanner"
     xmlns:ns3="http://tns.tibco.com/bw/palette/internal/activityerror+bw.edi.EDIFACTPrescanner"
     xmlns:ns4="http://www.tibco.com/EDI/translator"
@@ -1308,6 +1309,18 @@
                 </complexType>
             </element>
         </schema>
+        <schema elementFormDefault="unqualified"
+            targetNamespace="http://tns.tibco.com/bw/palette/internal/activityerror+com.tibco.bw.core.design.process.editor.Activity_4002_Throw"
+            xmlns="http://www.w3.org/2001/XMLSchema"
+            xmlns:Q1="http://schemas.tibco.com/bw/plugins/basic/6.0/Exceptions" xmlns:tns="http://tns.tibco.com/bw/palette/internal/activityerror+com.tibco.bw.core.design.process.editor.Activity_4002_Throw">
+            <import namespace="http://schemas.tibco.com/bw/plugins/basic/6.0/Exceptions"/>
+            <element name="ActivityErrorData" type="tns:ActivityErrorDataType"/>
+            <complexType name="ActivityErrorDataType">
+                <choice>
+                    <element maxOccurs="1" minOccurs="0" ref="Q1:DefaultFault"/>
+                </choice>
+            </complexType>
+        </schema>
     </tibex:Types>
     <tibex:ProcessInfo callable="false" createdBy="paolocaldera"
         createdOn="Thu Feb 01 15:40:41 CET 2024" description=""
@@ -2382,6 +2395,8 @@
             name="_error_ParseDESADV" sca-bpel:internal="true"/>
         <bpws:variable element="ns9:documentEntries" name="documentEntries"/>
         <bpws:variable element="ns14:DefaultFault" name="Thrown-input" sca-bpel:internal="true"/>
+        <bpws:variable element="ns16:ActivityErrorData"
+            name="_error_Thrown" sca-bpel:internal="true"/>
     </bpws:variables>
     <bpws:extensions>
         <bpws:extension mustUnderstand="no" namespace="http://www.eclipse.org/gmf/runtime/1.0.2/notation"/>

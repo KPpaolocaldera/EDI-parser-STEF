@@ -7,8 +7,8 @@
         <parameters xmi:id="_-xUQQMQwEe6abIi79Ayb_w">
           <parameterMapping xmi:id="_-xUQQcQwEe6abIi79Ayb_w" parameterName="storageType" parameterType="Query" dataType="string" required="true" description=""/>
         </parameters>
-        <responseStatus xmi:id="_T0dfYMTgEe6nYZAi_vRJLg" statusCode="500" reasonPhrase="Internal Server Error" elementQName="ApplicationSchema:ediParserResponse"/>
-        <responseStatus xmi:id="_L43FUMThEe6nYZAi_vRJLg" statusCode="400" reasonPhrase="Bad Request" elementQName="ApplicationSchema:ediParserResponse"/>
+        <responseStatus xmi:id="_T0dfYMTgEe6nYZAi_vRJLg" statusCode="500" reasonPhrase="Internal Server Error" elementQName="ApplicationSchema:ediParserPostResponse"/>
+        <responseStatus xmi:id="_WFiNgMUJEe6FPJ8z3QxO9w" statusCode="400" reasonPhrase="Bad Request" elementQName="ApplicationSchema:ediParserPostResponse"/>
         <clientFormat>json</clientFormat>
         <clientRequestFormat>json</clientRequestFormat>
       </operation>
@@ -17,6 +17,7 @@
           <parameterMapping xmi:id="_4KNj4cT1Ee6C1t-CvdlvIw" parameterName="orderNumber" parameterType="Query" dataType="string" required="true" description=""/>
           <parameterMapping xmi:id="_4stM8MT1Ee6C1t-CvdlvIw" parameterName="articleCode" parameterType="Query" dataType="string" required="true" description=""/>
         </parameters>
+        <responseStatus xmi:id="_NqA9QMUKEe6FPJ8z3QxO9w" statusCode="500" reasonPhrase="Internal Server Error" elementQName="ApplicationSchema:ediParserGetResponse"/>
         <clientFormat>json</clientFormat>
         <clientRequestFormat>json</clientRequestFormat>
       </operation>
