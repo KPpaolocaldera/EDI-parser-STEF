@@ -30,6 +30,7 @@
 	
 	<element name="ediParserRequest" type="tns:ediParserRequest_type" />
 	<element name="ediParserResponse" type="tns:ediParserResponse_type" />
+	<element name="getItemsInfoResponse" type="tns:getItemsInfoResponse_type" />
 	
 	<complexType name="ediParserRequest_type">
 		<sequence>
@@ -52,6 +53,22 @@
 		<sequence>
 			<element name="directoryName" type="string" />
 			<element name="fileName" type="string" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="getItemsInfoResponse_type">
+		<sequence>
+			<element name="getItemInfoResponse" type="tns:getItemInfoResponse_type" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="getItemInfoResponse_type">
+		<sequence>
+			<element name="messageType" type="string" />
+			<element name="orderNumber" type="string" />
+			<element name="customerCode" type="string" />
+			<element name="artcileCode" type="string" />
+			<element name="articleDescription" type="integer" />
 		</sequence>
 	</complexType>
 </schema>

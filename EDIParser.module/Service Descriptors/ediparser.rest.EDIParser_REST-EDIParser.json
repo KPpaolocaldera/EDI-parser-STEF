@@ -51,6 +51,34 @@
             }
           }
         }
+      },
+      "get" : {
+        "summary" : "getEDIParser",
+        "description" : "getEDIParser",
+        "operationId" : "get-ediparser",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "orderNumber",
+          "in" : "query",
+          "description" : "",
+          "type" : "string",
+          "required" : true
+        }, {
+          "name" : "articleCode",
+          "in" : "query",
+          "description" : "",
+          "type" : "string",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "a getItemsInfoResponse to be returned",
+            "schema" : {
+              "$ref" : "#/definitions/getItemsInfoResponse"
+            }
+          }
+        }
       }
     }
   },
@@ -97,6 +125,40 @@
         },
         "fileName" : {
           "type" : "string"
+        }
+      }
+    },
+    "getItemInfoResponse" : {
+      "type" : "object",
+      "required" : [ "orderNumber", "messageType", "artcileCode", "articleDescription", "customerCode" ],
+      "properties" : {
+        "messageType" : {
+          "type" : "string"
+        },
+        "orderNumber" : {
+          "type" : "string"
+        },
+        "customerCode" : {
+          "type" : "string"
+        },
+        "artcileCode" : {
+          "type" : "string"
+        },
+        "articleDescription" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "getItemsInfoResponse" : {
+      "type" : "object",
+      "properties" : {
+        "getItemInfoResponse" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/getItemInfoResponse",
+            "uniqueItems" : false
+          }
         }
       }
     }

@@ -12,6 +12,14 @@
         <clientFormat>json</clientFormat>
         <clientRequestFormat>json</clientRequestFormat>
       </operation>
+      <operation xmi:id="_zsX8EMT0Ee6C1t-CvdlvIw" operationName="get" nickname="get-ediparser" httpMethod="GET" notes="getEDIParser" responseStyle="element" requestStyle="element">
+        <parameters xmi:id="_4KNj4MT1Ee6C1t-CvdlvIw">
+          <parameterMapping xmi:id="_4KNj4cT1Ee6C1t-CvdlvIw" parameterName="orderNumber" parameterType="Query" dataType="string" required="true" description=""/>
+          <parameterMapping xmi:id="_4stM8MT1Ee6C1t-CvdlvIw" parameterName="articleCode" parameterType="Query" dataType="string" required="true" description=""/>
+        </parameters>
+        <clientFormat>json</clientFormat>
+        <clientRequestFormat>json</clientRequestFormat>
+      </operation>
       <parameters xmi:id="_gNlNs8QbEe6M-La0rKskpA"/>
       <import xmi:id="_kXArsMTgEe6nYZAi_vRJLg" importType="http://www.w3.org/2001/XMLSchema" namespace="http://www.keypartner.com/ApplicationSchema"/>
       <advancedConfig xmi:id="_gJgmAcQbEe6M-La0rKskpA" blockingQueueSize="8192"/>
