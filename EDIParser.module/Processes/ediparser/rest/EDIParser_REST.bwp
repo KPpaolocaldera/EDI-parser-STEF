@@ -44,6 +44,7 @@
             <endingVariables>
                 <variable>ReplyPost-input</variable>
                 <variable>MoveToHistoryFolder</variable>
+                <variable>WriteCSVBody</variable>
             </endingVariables>
         </task>
         <task name="ReadFile">
@@ -104,13 +105,13 @@
         <task name="WriteCSVHeader">
             <endingVariables>
                 <variable>WriteCSVHeader-input</variable>
-                <variable>WriteCSVHeader</variable>
                 <variable>separator</variable>
             </endingVariables>
         </task>
         <task name="Iterate1">
             <endingVariables>
                 <variable>currentEntry</variable>
+                <variable>WriteCSVHeader</variable>
             </endingVariables>
         </task>
         <task name="Renderdata">
@@ -121,13 +122,17 @@
         <task name="WriteCSVBody">
             <endingVariables>
                 <variable>WriteCSVBody-input</variable>
-                <variable>WriteCSVBody</variable>
                 <variable>Renderdata</variable>
             </endingVariables>
         </task>
         <task name="ThrowStorageType">
             <endingVariables>
                 <variable>ThrowStorageType-input</variable>
+            </endingVariables>
+        </task>
+        <task name="flow4">
+            <endingVariables>
+                <variable>FaultDetails</variable>
             </endingVariables>
         </task>
         <task name="LogError">
@@ -140,15 +145,15 @@
                 <variable>MoveToErrorFolder-input</variable>
             </endingVariables>
         </task>
-        <task name="ReplyErrorPost">
+        <task name="Reply400">
             <endingVariables>
-                <variable>ReplyErrorPost-input</variable>
+                <variable>Reply400-input</variable>
+            </endingVariables>
+        </task>
+        <task name="Reply500">
+            <endingVariables>
+                <variable>Reply500-input</variable>
                 <variable>_error_ReadFile</variable>
-                <variable>_error_EDIFACTPrescanner</variable>
-                <variable>_error_Translator</variable>
-                <variable>_error_JDBCUpdate</variable>
-                <variable>_error_WriteCSVHeader</variable>
-                <variable>_error_WriteCSVBody</variable>
                 <variable>MoveToErrorFolder</variable>
             </endingVariables>
         </task>
@@ -1464,6 +1469,8 @@
             <wsdl:import namespace="http://www.keypartner.com/ApplicationSchema"/>
             <wsdl:import namespace="http://tns.tibco.com/bw/REST"/>
             <wsdl:import namespace="http://xmlns.example.com/EDIParser/parameters"/>
+            <wsdl:import
+                location="../../../Schemas/ApplicationSchema.xsd" namespace="http://www.keypartner.com/ApplicationSchema"/>
             <wsdl:message name="postRequest">
                 <wsdl:part element="extns:ediParserRequest" name="item" tibex:hasMultipleNamespaces="false"/>
                 <wsdl:part element="extns1:httpHeaders"
@@ -1481,6 +1488,16 @@
             <wsdl:message name="post5XXFaultMessage">
                 <wsdl:part element="extns1:server5XXError" name="serverError"/>
             </wsdl:message>
+            <wsdl:message name="post500FaultMessage">
+                <wsdl:part element="extns:ediParserResponse"
+                    name="server-500-InternalServerError"
+                    tibex:reasonPhrase="Internal Server Error" tibex:statusCode="500"/>
+            </wsdl:message>
+            <wsdl:message name="post400FaultMessage">
+                <wsdl:part element="extns:ediParserResponse"
+                    name="client-400-BadRequest"
+                    tibex:reasonPhrase="Bad Request" tibex:statusCode="400"/>
+            </wsdl:message>
             <wsdl:portType name="ediparser"
                 tibex:bw.rest.apipath="/ediparser"
                 tibex:bw.rest.basepath="EDIParser"
@@ -1493,6 +1510,8 @@
                     <wsdl:output message="tns:postResponse" name="postOutput"/>
                     <wsdl:fault message="tns:post4XXFaultMessage" name="clientFault"/>
                     <wsdl:fault message="tns:post5XXFaultMessage" name="serverFault"/>
+                    <wsdl:fault message="tns:post500FaultMessage" name="server-500-Fault"/>
+                    <wsdl:fault message="tns:post400FaultMessage" name="client-400-Fault"/>
                 </wsdl:operation>
             </wsdl:portType>
         </wsdl:definitions>
@@ -3035,6 +3054,62 @@
                                     height="40"
                                     width="40"
                                     x="381"
+                                    xsi:type="notation:Bounds" y="153"/>
+                                    </children>
+
+                                    <children type="4002 com.tibco.bw.core.design.process.editor.Activity_4002_Reply">
+
+                                    <children type="4017">
+
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+
+                                    <children type="4017">
+
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+
+                                    <children type="4017">
+
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+
+                                    <children type="4017">
+
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+
+                                    <styles
+                                    fontName="Segoe UI"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+
+                                    <styles
+                                    backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+
+                                    <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@faultHandlers/@catchAll/@activity/@activity/@activities.3"/>
+
+                                    <layoutConstraint
+                                    height="40"
+                                    width="40"
+                                    x="381"
                                     xsi:type="notation:Bounds" y="54"/>
                                     </children>
 
@@ -3059,7 +3134,7 @@
                                     <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@faultHandlers/@catchAll/@activity/@activity"/>
 
                                     <layoutConstraint
-                                    height="168"
+                                    height="240"
                                     width="1404" xsi:type="notation:Bounds"/>
                                     </children>
 
@@ -3078,7 +3153,9 @@
 
                                     <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@faultHandlers/@catchAll"/>
 
-                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    <layoutConstraint
+                                    height="246"
+                                    width="1455" xsi:type="notation:Bounds"/>
                                     </children>
 
                                     <styles xsi:type="notation:SortingStyle"/>
@@ -3097,7 +3174,7 @@
                                     <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@faultHandlers"/>
 
                                     <layoutConstraint
-                                    height="200"
+                                    height="272"
                                     width="1465"
                                     x="21"
                                     xsi:type="notation:Bounds" y="418"/>
@@ -3114,7 +3191,7 @@
                                     <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity"/>
 
                                     <layoutConstraint
-                                    height="619"
+                                    height="691"
                                     width="1525" xsi:type="notation:Bounds"/>
                                     </children>
                                     <styles xsi:type="notation:SortingStyle"/>
@@ -3174,7 +3251,7 @@
                                     <styles xsi:type="bwnotation:ResizingStyle"/>
                                     <element href="//0/@process/@activity/@activity/@activities.0/@messages.0"/>
                                     <layoutConstraint
-                                    height="638"
+                                    height="710"
                                     width="1587"
                                     x="2" xsi:type="notation:Bounds"/>
                                     </children>
@@ -3188,7 +3265,7 @@
                                     <styles xsi:type="bwnotation:ResizingStyle"/>
                                     <element href="//0/@process/@activity/@activity/@activities.0"/>
                                     <layoutConstraint
-                                    height="668"
+                                    height="740"
                                     width="1605" xsi:type="notation:Bounds"/>
                                     </children>
                                     <styles xsi:type="notation:DrawerStyle"/>
@@ -3203,7 +3280,7 @@
                                     gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
                                     <styles xsi:type="bwnotation:ResizingStyle"/>
                                     <element href="//0/@process/@activity/@activity"/>
-                                    <layoutConstraint height="858"
+                                    <layoutConstraint height="750"
                                     width="1616" xsi:type="notation:Bounds"/>
                                 </children>
                                 <styles xsi:type="notation:SortingStyle"/>
@@ -3213,7 +3290,7 @@
                             <styles xsi:type="bwnotation:BackgroundStyle"/>
                             <styles xsi:type="bwnotation:ResizingStyle"/>
                             <element href="//0/@process/@activity"/>
-                            <layoutConstraint height="858" width="1619" xsi:type="notation:Bounds"/>
+                            <layoutConstraint height="750" width="1619" xsi:type="notation:Bounds"/>
                         </children>
                         <styles xsi:type="notation:SortingStyle"/>
                         <styles xsi:type="notation:FilteringStyle"/>
@@ -3223,7 +3300,7 @@
                     <styles xsi:type="bwnotation:BackgroundStyle"/>
                     <styles xsi:type="bwnotation:ResizingStyle"/>
                     <element href="//0/@process/@activity"/>
-                    <layoutConstraint height="882" width="1619" x="1"
+                    <layoutConstraint height="774" width="1619" x="1"
                         xsi:type="notation:Bounds" y="1"/>
                 </children>
                 <styles xsi:type="notation:SortingStyle"/>
@@ -3232,7 +3309,7 @@
             </children>
             <styles fontName="Segoe UI" lineColor="0" xsi:type="notation:ShapeStyle"/>
             <element href="//0/@process"/>
-            <layoutConstraint height="774" width="1961" xsi:type="notation:Bounds"/>
+            <layoutConstraint height="826" width="1961" xsi:type="notation:Bounds"/>
         </children>
         <styles xsi:type="notation:DiagramStyle"/>
         <element href="//0"/>
@@ -3438,27 +3515,17 @@
             <bendpoints points="[25, 0, -104, 0]$[105, 0, -24, 0]" xsi:type="notation:RelativeBendpoints"/>
         </edges>
         <edges
-            source="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1"
-            target="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.2" type="4006">
-            <children type="6002">
-                <layoutConstraint xsi:type="notation:Location" y="40"/>
-            </children>
-            <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
-            <styles fontName="Segoe UI" xsi:type="notation:FontStyle"/>
-            <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@faultHandlers/@catchAll/@activity/@activity/@links/@children.1"/>
-            <bendpoints points="[25, 0, -110, 0]$[111, 0, -24, 0]" xsi:type="notation:RelativeBendpoints"/>
-        </edges>
-        <edges
             source="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.0"
-            target="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.2" type="4006">
+            target="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.3" type="4006">
             <children type="6002">
                 <layoutConstraint x="-53" xsi:type="notation:Location" y="-6"/>
             </children>
             <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
             <styles fontName="Segoe UI" xsi:type="notation:FontStyle"/>
-            <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@faultHandlers/@catchAll/@activity/@activity/@links/@children.2"/>
+            <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@faultHandlers/@catchAll/@activity/@activity/@links/@children.1"/>
             <bendpoints
-                points="[0, -24, -273, -24]$[0, -45, -273, -45]$[273, -45, 0, -45]$[273, -24, 0, -24]" xsi:type="notation:RelativeBendpoints"/>
+                points="[0, -24, -282, -9]$[0, -56, -282, -41]$[273, -56, -9, -41]$[273, -24, -9, -9]" xsi:type="notation:RelativeBendpoints"/>
+            <targetAnchor id="(0.673469387755102,0.1836734693877551)" xsi:type="notation:IdentityAnchor"/>
         </edges>
         <edges
             source="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.6"
@@ -3470,6 +3537,29 @@
             <styles fontName="Segoe UI" xsi:type="notation:FontStyle"/>
             <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@activity/@links/@children.12"/>
             <bendpoints points="[0, 0, 0, 0]$[0, 0, 0, 0]" xsi:type="notation:RelativeBendpoints"/>
+        </edges>
+        <edges
+            source="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.0"
+            target="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.2" type="4006">
+            <children type="6002">
+                <layoutConstraint xsi:type="notation:Location" y="40"/>
+            </children>
+            <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
+            <styles fontName="Segoe UI" xsi:type="notation:FontStyle"/>
+            <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@faultHandlers/@catchAll/@activity/@activity/@links/@children.2"/>
+            <bendpoints
+                points="[0, 25, -273, -66]$[0, 91, -273, 0]$[249, 91, -24, 0]" xsi:type="notation:RelativeBendpoints"/>
+        </edges>
+        <edges
+            source="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1"
+            target="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0/@children.0/@children.3" type="4006">
+            <children type="6002">
+                <layoutConstraint xsi:type="notation:Location" y="40"/>
+            </children>
+            <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
+            <styles fontName="Segoe UI" xsi:type="notation:FontStyle"/>
+            <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@faultHandlers/@catchAll/@activity/@activity/@links/@children.3"/>
+            <bendpoints points="[25, 1, -258, 0]$[259, 0, -24, -1]" xsi:type="notation:RelativeBendpoints"/>
         </edges>
     </notation:Diagram>
     <tibex:NamespaceRegistry enabled="true">
@@ -3599,11 +3689,13 @@
             name="MoveToErrorFolder" sca-bpel:internal="true"/>
         <bpws:variable element="ns16:ActivityErrorData"
             name="_error_MoveToErrorFolder" sca-bpel:internal="true"/>
-        <bpws:variable messageType="ns:postResponse"
-            name="ReplyErrorPost-input" sca-bpel:internal="true"/>
         <bpws:variable element="ns8:ActivityInput" name="LogErro-input" sca-bpel:internal="true"/>
         <bpws:variable element="ns22:DefaultFault"
             name="ThrowStorageType-input" sca-bpel:internal="true"/>
+        <bpws:variable messageType="ns:post400FaultMessage"
+            name="Reply400-input" sca-bpel:internal="true"/>
+        <bpws:variable messageType="ns:post500FaultMessage"
+            name="Reply500-input" sca-bpel:internal="true"/>
     </bpws:variables>
     <bpws:extensions>
         <bpws:extension mustUnderstand="no" namespace="http://www.eclipse.org/gmf/runtime/1.0.2/notation"/>
@@ -3631,10 +3723,12 @@
                                     <bpws:link
                                     name="LogErrorToRenameFile" tibex:linkType="SUCCESSWITHNOCONDITION"/>
                                     <bpws:link
-                                    name="MoveToErrorFolderToReply" tibex:linkType="SUCCESS"/>
-                                    <bpws:link
-                                    name="LogErrorToReplyErrorPost_NoInputFile"
+                                    name="LogErrorToReply1"
                                     tibex:label="NoInputFile" tibex:linkType="SUCCESSWITHCONDITION"/>
+                                    <bpws:link
+                                    name="LogErrorToReply" tibex:linkType="SUCCESSWITHCONDITION"/>
+                                    <bpws:link
+                                    name="MoveToErrorFolderToReply1" tibex:linkType="SUCCESS"/>
                                     </bpws:links>
                                     <bpws:extensionActivity>
                                     <tibex:activityExtension
@@ -3651,7 +3745,7 @@
 
                                     <bpws:transitionCondition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"><![CDATA[##otherwise##]]></bpws:transitionCondition>
                                     </bpws:source>
-                                    <bpws:source linkName="LogErrorToReplyErrorPost_NoInputFile">
+                                    <bpws:source linkName="LogErrorToReply1">
                                     <tibex:DesignExpression>
 
                                     <tibex:expression
@@ -3659,6 +3753,15 @@
                                     </tibex:DesignExpression>
 
                                     <bpws:transitionCondition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"><![CDATA[exists($_error_ReadFile)]]></bpws:transitionCondition>
+                                    </bpws:source>
+                                    <bpws:source linkName="LogErrorToReply">
+                                    <tibex:DesignExpression>
+
+                                    <tibex:expression
+                                    expression="starts-with($FaultDetails/MsgCode, &quot;BW6-&quot;)" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"/>
+                                    </tibex:DesignExpression>
+
+                                    <bpws:transitionCondition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"><![CDATA[starts-with($FaultDetails/MsgCode, "BW6-")]]></bpws:transitionCondition>
                                     </bpws:source>
                                     </bpws:sources>
                                     <tibex:inputBindings>
@@ -3698,7 +3801,7 @@
                                     <bpws:target linkName="LogErrorToRenameFile"/>
                                     </bpws:targets>
                                     <bpws:sources>
-                                    <bpws:source linkName="MoveToErrorFolderToReply"/>
+                                    <bpws:source linkName="MoveToErrorFolderToReply1"/>
                                     </bpws:sources>
                                     <tibex:inputBindings>
                                     <tibex:inputBinding
@@ -3724,22 +3827,38 @@
                                     </tibex:activityExtension>
                                     </bpws:extensionActivity>
                                     <bpws:reply
-                                    name="ReplyErrorPost"
+                                    faultName="client-400-Fault"
+                                    name="Reply400"
                                     operation="post"
                                     partnerLink="ediparser"
                                     portType="ns:ediparser"
-                                    tibex:xpdlId="4372c1b5-3e37-4634-aada-75bc5de993f4" variable="ReplyErrorPost-input">
+                                    tibex:xpdlId="737ea25a-316c-448c-8472-896905753f89" variable="Reply400-input">
                                     <tibex:inputBinding expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns8="http://xmlns.example.com/20240205124128PLT" xmlns:tns9="http://tns.tibco.com/bw/REST" xmlns:tns1="http://www.keypartner.com/ApplicationSchema" version="2.0"&gt;&lt;xsl:param name="_error_WriteCSVBody"/&gt;&lt;xsl:param name="_error_JDBCUpdate"/&gt;&lt;xsl:param name="_error_WriteCSVHeader"/&gt;&lt;xsl:param name="_error_Translator"/&gt;&lt;xsl:param name="_error_EDIFACTPrescanner"/&gt;&lt;xsl:param name="MoveToErrorFolder"/&gt;&lt;xsl:param name="_error_ReadFile"/&gt;&lt;xsl:param name="_error"/&gt;&lt;xsl:template name="ReplyErrorPost-input" match="/"&gt;&lt;tns8:postResponse&gt;&lt;item&gt;&lt;tns1:ediParserResponse&gt;&lt;tns1:outcome&gt;&lt;xsl:value-of select="false()"/&gt;&lt;/tns1:outcome&gt;&lt;xsl:choose&gt;&lt;xsl:when test="exists($_error_ReadFile)"&gt;&lt;tns1:errorDescription&gt;&lt;xsl:value-of select="&amp;quot;Impossible to retrieve the input file: check carefully the input path provided&amp;quot;"/&gt;&lt;/tns1:errorDescription&gt;&lt;/xsl:when&gt;&lt;xsl:when test="exists($_error_EDIFACTPrescanner) or exists($_error_Translator)"&gt;&lt;tns1:errorDescription&gt;&lt;xsl:value-of select="&amp;quot;Invalid EDIFACT message provided&amp;quot;"/&gt;&lt;/tns1:errorDescription&gt;&lt;/xsl:when&gt;&lt;xsl:when test="exists($_error_WriteCSVHeader) or exists($_error_WriteCSVBody) or exists($_error_JDBCUpdate)"&gt;&lt;tns1:errorDescription&gt;&lt;xsl:value-of select="&amp;quot;Output generation failed&amp;quot;"/&gt;&lt;/tns1:errorDescription&gt;&lt;/xsl:when&gt;&lt;xsl:otherwise&gt;&lt;tns1:errorDescription&gt;&lt;xsl:value-of select="$_error/Msg"/&gt;&lt;/tns1:errorDescription&gt;&lt;/xsl:otherwise&gt;&lt;/xsl:choose&gt;&lt;xsl:if test="not(exists($_error_ReadFile))"&gt;&lt;tns1:errorDirectoryName&gt;&lt;xsl:value-of select="$MoveToErrorFolder/fileInfo/location"/&gt;&lt;/tns1:errorDirectoryName&gt;&lt;/xsl:if&gt;&lt;/tns1:ediParserResponse&gt;&lt;/item&gt;&lt;status&gt;&lt;tns9:statusLine&gt;&lt;statusCode&gt;&lt;xsl:value-of select="500"/&gt;&lt;/statusCode&gt;&lt;/tns9:statusLine&gt;&lt;/status&gt;&lt;/tns8:postResponse&gt;&lt;/xsl:template&gt;&lt;/xsl:stylesheet&gt;</tibex:inputBinding>
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns8="http://xmlns.example.com/20240205124128PLT" xmlns:tns9="http://tns.tibco.com/bw/REST" xmlns:tns1="http://www.keypartner.com/ApplicationSchema" version="2.0"&gt;&lt;xsl:param name="FaultDetails"/&gt;&lt;xsl:template name="Reply400-input" match="/"&gt;&lt;tns8:post400FaultMessage&gt;&lt;client-400-BadRequest&gt;&lt;tns1:ediParserResponse&gt;&lt;tns1:outcome&gt;&lt;xsl:value-of select="false()"/&gt;&lt;/tns1:outcome&gt;&lt;tns1:errorDescription&gt;&lt;xsl:value-of select="$FaultDetails/Msg"/&gt;&lt;/tns1:errorDescription&gt;&lt;/tns1:ediParserResponse&gt;&lt;/client-400-BadRequest&gt;&lt;/tns8:post400FaultMessage&gt;&lt;/xsl:template&gt;&lt;/xsl:stylesheet&gt;</tibex:inputBinding>
                                     <tibex:inputBindings>
                                     <tibex:partBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;_error_WriteCSVBody&quot;/>&#xa;    &lt;xsl:param name=&quot;_error_JDBCUpdate&quot;/>&#xa;    &lt;xsl:param name=&quot;_error_WriteCSVHeader&quot;/>&#xa;    &lt;xsl:param name=&quot;_error_Translator&quot;/>&#xa;    &lt;xsl:param name=&quot;_error_EDIFACTPrescanner&quot;/>&#xa;    &lt;xsl:param name=&quot;MoveToErrorFolder&quot;/>&#xa;    &lt;xsl:param name=&quot;_error_ReadFile&quot;/>&#xa;    &lt;xsl:param name=&quot;_error&quot;/>&#xa;    &lt;xsl:template name=&quot;ReplyErrorPost-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:ediParserResponse>&#xa;            &lt;tns1:outcome>&#xa;                &lt;xsl:value-of select=&quot;false()&quot;/>&#xa;            &lt;/tns1:outcome>&#xa;            &lt;xsl:choose>&#xa;                &lt;xsl:when test=&quot;exists($_error_ReadFile)&quot;>&#xa;                    &lt;tns1:errorDescription>&#xa;                        &lt;xsl:value-of select=&quot;&amp;quot;Impossible to retrieve the input file: check carefully the input path provided&amp;quot;&quot;/>&#xa;                    &lt;/tns1:errorDescription>&#xa;                &lt;/xsl:when>&#xa;                &lt;xsl:when test=&quot;exists($_error_EDIFACTPrescanner) or exists($_error_Translator)&quot;>&#xa;                    &lt;tns1:errorDescription>&#xa;                        &lt;xsl:value-of select=&quot;&amp;quot;Invalid EDIFACT message provided&amp;quot;&quot;/>&#xa;                    &lt;/tns1:errorDescription>&#xa;                &lt;/xsl:when>&#xa;                &lt;xsl:when test=&quot;exists($_error_WriteCSVHeader) or exists($_error_WriteCSVBody) or exists($_error_JDBCUpdate)&quot;>&#xa;                    &lt;tns1:errorDescription>&#xa;                        &lt;xsl:value-of select=&quot;&amp;quot;Output generation failed&amp;quot;&quot;/>&#xa;                    &lt;/tns1:errorDescription>&#xa;                &lt;/xsl:when>&#xa;                &lt;xsl:otherwise>&#xa;                    &lt;tns1:errorDescription>&#xa;                        &lt;xsl:value-of select=&quot;$_error/Msg&quot;/>&#xa;                    &lt;/tns1:errorDescription>&#xa;                &lt;/xsl:otherwise>&#xa;            &lt;/xsl:choose>&#xa;            &lt;xsl:if test=&quot;not(exists($_error_ReadFile))&quot;>&#xa;                &lt;tns1:errorDirectoryName>&#xa;                    &lt;xsl:value-of select=&quot;$MoveToErrorFolder/fileInfo/location&quot;/>&#xa;                &lt;/tns1:errorDirectoryName>&#xa;            &lt;/xsl:if>&#xa;        &lt;/tns1:ediParserResponse>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
-                                    <tibex:partBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:template name=&quot;ReplyErrorPost-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns9:statusLine>&#xa;            &lt;statusCode>&#xa;                &lt;xsl:value-of select=&quot;500&quot;/>&#xa;            &lt;/statusCode>&#xa;        &lt;/tns9:statusLine>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;FaultDetails&quot;/>&#xa;    &lt;xsl:template name=&quot;Reply400-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:ediParserResponse>&#xa;            &lt;tns1:outcome>&#xa;                &lt;xsl:value-of select=&quot;false()&quot;/>&#xa;            &lt;/tns1:outcome>&#xa;            &lt;tns1:errorDescription>&#xa;                &lt;xsl:value-of select=&quot;$FaultDetails/Msg&quot;/>&#xa;            &lt;/tns1:errorDescription>&#xa;        &lt;/tns1:ediParserResponse>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                     </tibex:inputBindings>
                                     <bpws:targets>
-                                    <bpws:target linkName="MoveToErrorFolderToReply"/>
-                                    <bpws:target linkName="LogErrorToReplyErrorPost_NoInputFile"/>
+                                    <bpws:target linkName="LogErrorToReply"/>
+                                    </bpws:targets>
+                                    </bpws:reply>
+                                    <bpws:reply
+                                    faultName="server-500-Fault"
+                                    name="Reply500"
+                                    operation="post"
+                                    partnerLink="ediparser"
+                                    portType="ns:ediparser"
+                                    tibex:xpdlId="a2c12cd2-cf31-4b56-b48a-ffbb94beb13a" variable="Reply500-input">
+                                    <tibex:inputBinding expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns8="http://xmlns.example.com/20240205124128PLT" xmlns:tns9="http://tns.tibco.com/bw/REST" xmlns:tns1="http://www.keypartner.com/ApplicationSchema" version="2.0"&gt;&lt;xsl:param name="MoveToErrorFolder"/&gt;&lt;xsl:param name="FaultDetails"/&gt;&lt;xsl:param name="_error_ReadFile"/&gt;&lt;xsl:template name="Reply-input" match="/"&gt;&lt;tns8:post500FaultMessage&gt;&lt;server-500-InternalServerError&gt;&lt;tns1:ediParserResponse&gt;&lt;tns1:outcome&gt;&lt;xsl:value-of select="false()"/&gt;&lt;/tns1:outcome&gt;&lt;tns1:errorDescription&gt;&lt;xsl:value-of select="$FaultDetails/Msg"/&gt;&lt;/tns1:errorDescription&gt;&lt;xsl:if test="not(exists($_error_ReadFile))"&gt;&lt;tns1:errorDirectoryName&gt;&lt;xsl:value-of select="replace($MoveToErrorFolder/fileInfo/location, &amp;quot;\\&amp;quot;, &amp;quot;/&amp;quot;)"/&gt;&lt;/tns1:errorDirectoryName&gt;&lt;/xsl:if&gt;&lt;/tns1:ediParserResponse&gt;&lt;/server-500-InternalServerError&gt;&lt;/tns8:post500FaultMessage&gt;&lt;/xsl:template&gt;&lt;/xsl:stylesheet&gt;</tibex:inputBinding>
+                                    <tibex:inputBindings>
+                                    <tibex:partBinding
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;MoveToErrorFolder&quot;/>&#xa;    &lt;xsl:param name=&quot;FaultDetails&quot;/>&#xa;    &lt;xsl:param name=&quot;_error_ReadFile&quot;/>&#xa;    &lt;xsl:template name=&quot;Reply-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:ediParserResponse>&#xa;            &lt;tns1:outcome>&#xa;                &lt;xsl:value-of select=&quot;false()&quot;/>&#xa;            &lt;/tns1:outcome>&#xa;            &lt;tns1:errorDescription>&#xa;                &lt;xsl:value-of select=&quot;$FaultDetails/Msg&quot;/>&#xa;            &lt;/tns1:errorDescription>&#xa;            &lt;xsl:if test=&quot;not(exists($_error_ReadFile))&quot;>&#xa;                &lt;tns1:errorDirectoryName>&#xa;                    &lt;xsl:value-of select=&quot;replace($MoveToErrorFolder/fileInfo/location, &amp;quot;\\&amp;quot;, &amp;quot;/&amp;quot;)&quot;/>&#xa;                &lt;/tns1:errorDirectoryName>&#xa;            &lt;/xsl:if>&#xa;        &lt;/tns1:ediParserResponse>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    </tibex:inputBindings>
+                                    <bpws:targets>
+                                    <bpws:target linkName="LogErrorToReply1"/>
+                                    <bpws:target linkName="MoveToErrorFolderToReply1"/>
                                     </bpws:targets>
                                     </bpws:reply>
                                     </bpws:flow>
@@ -3775,35 +3894,12 @@
                                 tibex:xpdlId="cb2e677f-905a-43da-9498-07c3c4ed70bf" variable="ReplyPost-input">
                                 <tibex:inputBindings>
                                     <tibex:partBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;MoveToHistoryFolder&quot;/>&#xa;    &lt;xsl:template name=&quot;ReplyPost-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:ediParserResponse>&#xa;            &lt;tns1:outcome>&#xa;                &lt;xsl:value-of select=&quot;true()&quot;/>&#xa;            &lt;/tns1:outcome>&#xa;            &lt;tns1:historyDirectoryName>&#xa;                &lt;xsl:value-of select=&quot;$MoveToHistoryFolder/fileInfo/location&quot;/>&#xa;            &lt;/tns1:historyDirectoryName>&#xa;        &lt;/tns1:ediParserResponse>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; xmlns:tns=&quot;http://xmlns.example.com/EDIParser/parameters&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;post.parameters&quot;/>&#xa;    &lt;xsl:param name=&quot;MoveToHistoryFolder&quot;/>&#xa;    &lt;xsl:param name=&quot;WriteCSVBody&quot;/>&#xa;    &lt;xsl:template name=&quot;ReplyPost-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:ediParserResponse>&#xa;            &lt;tns1:outcome>&#xa;                &lt;xsl:value-of select=&quot;true()&quot;/>&#xa;            &lt;/tns1:outcome>&#xa;            &lt;xsl:if test=&quot;$post.parameters/tns:storageType = &amp;quot;file&amp;quot;&quot;>&#xa;                &lt;tns1:outputDirectoryName>&#xa;                    &lt;xsl:value-of select=&quot;replace($WriteCSVBody/fileInfo/location, &amp;quot;\\&amp;quot;, &amp;quot;/&amp;quot;)&quot;/>&#xa;                &lt;/tns1:outputDirectoryName>&#xa;            &lt;/xsl:if>&#xa;            &lt;tns1:historyDirectoryName>&#xa;                &lt;xsl:value-of select=&quot;replace($MoveToHistoryFolder/fileInfo/location, &amp;quot;\\&amp;quot;, &amp;quot;/&amp;quot;)&quot;/>&#xa;            &lt;/tns1:historyDirectoryName>&#xa;        &lt;/tns1:ediParserResponse>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                     <tibex:partBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:template name=&quot;ReplyPost-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns9:statusLine>&#xa;            &lt;statusCode>&#xa;                &lt;xsl:value-of select=&quot;200&quot;/>&#xa;            &lt;/statusCode>&#xa;        &lt;/tns9:statusLine>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; xmlns:tns=&quot;http://xmlns.example.com/EDIParser/parameters&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:template name=&quot;ReplyPost-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns9:statusLine>&#xa;            &lt;statusCode>&#xa;                &lt;xsl:value-of select=&quot;200&quot;/>&#xa;            &lt;/statusCode>&#xa;        &lt;/tns9:statusLine>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                 </tibex:inputBindings>
                                 <tibex:inputBinding expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns8="http://xmlns.example.com/20240205124128PLT" xmlns:tns1="http://www.keypartner.com/ApplicationSchema" xmlns:tns9="http://tns.tibco.com/bw/REST" version="2.0"&gt;
-    &lt;xsl:param name="MoveToHistoryFolder"/&gt;
-    &lt;xsl:template name="ReplyPost-input" match="/"&gt;
-        &lt;tns8:postResponse&gt;
-            &lt;item&gt;
-                &lt;tns1:ediParserResponse&gt;
-                    &lt;tns1:outcome&gt;
-                        &lt;xsl:value-of select="true()"/&gt;
-                    &lt;/tns1:outcome&gt;
-                    &lt;tns1:historyDirectoryName&gt;
-                        &lt;xsl:value-of select="$MoveToHistoryFolder/fileInfo/location"/&gt;
-                    &lt;/tns1:historyDirectoryName&gt;
-                &lt;/tns1:ediParserResponse&gt;
-            &lt;/item&gt;
-            &lt;status&gt;
-                &lt;tns9:statusLine&gt;
-                    &lt;statusCode&gt;
-                        &lt;xsl:value-of select="200"/&gt;
-                    &lt;/statusCode&gt;
-                &lt;/tns9:statusLine&gt;
-            &lt;/status&gt;
-        &lt;/tns8:postResponse&gt;
-    &lt;/xsl:template&gt;
-&lt;/xsl:stylesheet&gt;</tibex:inputBinding>
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns8="http://xmlns.example.com/20240205124128PLT" xmlns:tns1="http://www.keypartner.com/ApplicationSchema" xmlns:tns9="http://tns.tibco.com/bw/REST" xmlns:tns="http://xmlns.example.com/EDIParser/parameters" version="2.0"&gt;&lt;xsl:param name="MoveToHistoryFolder"/&gt;&lt;xsl:param name="WriteCSVBody"/&gt;&lt;xsl:param name="post"/&gt;&lt;xsl:template name="ReplyPost-input" match="/"&gt;&lt;tns8:postResponse&gt;&lt;item&gt;&lt;tns1:ediParserResponse&gt;&lt;tns1:outcome&gt;&lt;xsl:value-of select="true()"/&gt;&lt;/tns1:outcome&gt;&lt;xsl:if test="$post/parameters/tns:ediparserPostParameters/tns:storageType = &amp;quot;file&amp;quot;"&gt;&lt;tns1:outputDirectoryName&gt;&lt;xsl:value-of select="replace($WriteCSVBody/fileInfo/location, &amp;quot;\\&amp;quot;, &amp;quot;/&amp;quot;)"/&gt;&lt;/tns1:outputDirectoryName&gt;&lt;/xsl:if&gt;&lt;tns1:historyDirectoryName&gt;&lt;xsl:value-of select="replace($MoveToHistoryFolder/fileInfo/location, &amp;quot;\\&amp;quot;, &amp;quot;/&amp;quot;)"/&gt;&lt;/tns1:historyDirectoryName&gt;&lt;/tns1:ediParserResponse&gt;&lt;/item&gt;&lt;status&gt;&lt;tns9:statusLine&gt;&lt;statusCode&gt;&lt;xsl:value-of select="200"/&gt;&lt;/statusCode&gt;&lt;/tns9:statusLine&gt;&lt;/status&gt;&lt;/tns8:postResponse&gt;&lt;/xsl:template&gt;&lt;/xsl:stylesheet&gt;</tibex:inputBinding>
                                 <bpws:targets>
                                     <bpws:target linkName="RenameFileTopostOut"/>
                                 </bpws:targets>
@@ -4242,7 +4338,7 @@
                             </bpws:extensionActivity>
                             <bpws:extensionActivity>
                                 <tibex:activityExtension
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;post&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:template name=&quot;WriteFile-input&quot; match=&quot;/&quot;>&lt;tns7:WriteActivityInputTextClass>&lt;xsl:choose>&lt;xsl:when test=&quot;string-length($post/item/tns1:ediParserRequest/tns1:output/tns1:directoryName)>0 and string-length($post/item/tns1:ediParserRequest/tns1:output/tns1:fileName)>0&quot;>&lt;fileName>&lt;xsl:value-of select=&quot;concat($post/item/tns1:ediParserRequest/tns1:output/tns1:directoryName, &amp;quot;/&amp;quot;, $post/item/tns1:ediParserRequest/tns1:output/tns1:fileName)&quot;/>&lt;/fileName>&lt;/xsl:when>&lt;xsl:otherwise>&lt;fileName>&lt;xsl:value-of select=&quot;concat($post/item/tns1:ediParserRequest/tns1:input/tns1:directoryName, &amp;quot;/Output/&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns1:documentEntry[1]/tns1:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;.csv&amp;quot;)&quot;/>&lt;/fileName>&lt;/xsl:otherwise>&lt;/xsl:choose>&lt;textContent>&lt;xsl:value-of select=&quot;concat(&amp;quot;OrderID&amp;quot;,$separator,&amp;quot;CustomerID&amp;quot;,$separator,&amp;quot;ArticleID&amp;quot;,$separator,&amp;quot;ArticleDescription&amp;quot;,$separator,&amp;quot;ArticleQuantity&amp;quot;,&amp;quot;&amp;#xA;&amp;quot;)&quot;/>&lt;/textContent>&lt;/tns7:WriteActivityInputTextClass>&lt;/xsl:template>&lt;/xsl:stylesheet>"
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;post&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:param name=&quot;separator&quot;/>&lt;xsl:template name=&quot;WriteCSVHeader-input&quot; match=&quot;/&quot;>&lt;tns7:WriteActivityInputTextClass>&lt;xsl:choose>&lt;xsl:when test=&quot;string-length($post/item/tns1:ediParserRequest/tns1:output/tns1:directoryName)>0 and string-length($post/item/tns1:ediParserRequest/tns1:output/tns1:fileName)>0&quot;>&lt;fileName>&lt;xsl:value-of select=&quot;concat($post/item/tns1:ediParserRequest/tns1:output/tns1:directoryName, &amp;quot;/&amp;quot;, $post/item/tns1:ediParserRequest/tns1:output/tns1:fileName)&quot;/>&lt;/fileName>&lt;/xsl:when>&lt;xsl:otherwise>&lt;fileName>&lt;xsl:value-of select=&quot;concat($post/item/tns1:ediParserRequest/tns1:input/tns1:directoryName, &amp;quot;/Output/&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns1:documentEntry[1]/tns1:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;.csv&amp;quot;)&quot;/>&lt;/fileName>&lt;/xsl:otherwise>&lt;/xsl:choose>&lt;textContent>&lt;xsl:value-of select=&quot;concat(&amp;quot;OrderID&amp;quot;,$separator,&amp;quot;CustomerID&amp;quot;,$separator,&amp;quot;ArticleID&amp;quot;,$separator,&amp;quot;ArticleDescription&amp;quot;,$separator,&amp;quot;ArticleQuantity&amp;quot;,&amp;quot;&amp;#xA;&amp;quot;)&quot;/>&lt;/textContent>&lt;/tns7:WriteActivityInputTextClass>&lt;/xsl:template>&lt;/xsl:stylesheet>"
                                     expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"
                                     inputVariable="WriteCSVHeader-input"
                                     name="WriteCSVHeader"
@@ -4256,7 +4352,7 @@
                                     </bpws:sources>
                                     <tibex:inputBindings>
                                     <tibex:inputBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;post.item&quot;/>&#xa;    &lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&#xa;    &lt;xsl:param name=&quot;Mapper&quot;/>&#xa;    &lt;xsl:template name=&quot;WriteFile-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns7:WriteActivityInputTextClass>&#xa;            &lt;xsl:choose>&#xa;                &lt;xsl:when test=&quot;string-length($post.item/tns1:output/tns1:directoryName)>0 and string-length($post.item/tns1:output/tns1:fileName)>0&quot;>&#xa;                    &lt;fileName>&#xa;                        &lt;xsl:value-of select=&quot;concat($post.item/tns1:output/tns1:directoryName, &amp;quot;/&amp;quot;, $post.item/tns1:output/tns1:fileName)&quot;/>&#xa;                    &lt;/fileName>&#xa;                &lt;/xsl:when>&#xa;                &lt;xsl:otherwise>&#xa;                    &lt;fileName>&#xa;                        &lt;xsl:value-of select=&quot;concat($post.item/tns1:input/tns1:directoryName, &amp;quot;/Output/&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns1:documentEntry[1]/tns1:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;.csv&amp;quot;)&quot;/>&#xa;                    &lt;/fileName>&#xa;                &lt;/xsl:otherwise>&#xa;            &lt;/xsl:choose>&#xa;            &lt;textContent>&#xa;                &lt;xsl:value-of select=&quot;concat(&amp;quot;OrderID&amp;quot;,$separator,&amp;quot;CustomerID&amp;quot;,$separator,&amp;quot;ArticleID&amp;quot;,$separator,&amp;quot;ArticleDescription&amp;quot;,$separator,&amp;quot;ArticleQuantity&amp;quot;,&amp;quot;&amp;#xA;&amp;quot;)&quot;/>&#xa;            &lt;/textContent>&#xa;        &lt;/tns7:WriteActivityInputTextClass>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;post.item&quot;/>&#xa;    &lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&#xa;    &lt;xsl:param name=&quot;Mapper&quot;/>&#xa;    &lt;xsl:param name=&quot;separator&quot;/>&#xa;    &lt;xsl:template name=&quot;WriteCSVHeader-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns7:WriteActivityInputTextClass>&#xa;            &lt;xsl:choose>&#xa;                &lt;xsl:when test=&quot;string-length($post.item/tns1:output/tns1:directoryName)>0 and string-length($post.item/tns1:output/tns1:fileName)>0&quot;>&#xa;                    &lt;fileName>&#xa;                        &lt;xsl:value-of select=&quot;concat($post.item/tns1:output/tns1:directoryName, &amp;quot;/&amp;quot;, $post.item/tns1:output/tns1:fileName)&quot;/>&#xa;                    &lt;/fileName>&#xa;                &lt;/xsl:when>&#xa;                &lt;xsl:otherwise>&#xa;                    &lt;fileName>&#xa;                        &lt;xsl:value-of select=&quot;concat($post.item/tns1:input/tns1:directoryName, &amp;quot;/Output/&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns1:documentEntry[1]/tns1:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;.csv&amp;quot;)&quot;/>&#xa;                    &lt;/fileName>&#xa;                &lt;/xsl:otherwise>&#xa;            &lt;/xsl:choose>&#xa;            &lt;textContent>&#xa;                &lt;xsl:value-of select=&quot;concat(&amp;quot;OrderID&amp;quot;,$separator,&amp;quot;CustomerID&amp;quot;,$separator,&amp;quot;ArticleID&amp;quot;,$separator,&amp;quot;ArticleDescription&amp;quot;,$separator,&amp;quot;ArticleQuantity&amp;quot;,&amp;quot;&amp;#xA;&amp;quot;)&quot;/>&#xa;            &lt;/textContent>&#xa;        &lt;/tns7:WriteActivityInputTextClass>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                     </tibex:inputBindings>
                                     <tibex:config>
                                     <bwext:BWActivity
@@ -4373,8 +4469,6 @@
                                     <bpws:extensionActivity>
 
                                     <tibex:activityExtension
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;post&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:param name=&quot;Renderdata&quot;/>&lt;xsl:template name=&quot;WriteCSVBody-input&quot; match=&quot;/&quot;>&lt;tns7:WriteActivityInputTextClass>&lt;xsl:choose>&lt;xsl:when test=&quot;string-length($post/item/tns1:ediParserRequest/tns1:output/tns1:directoryName)>0 and string-length($post/item/tns1:ediParserRequest/tns1:output/tns1:fileName)>0&quot;>&lt;fileName>&lt;xsl:value-of select=&quot;concat($post/item/tns1:ediParserRequest/tns1:output/tns1:directoryName, &amp;quot;/&amp;quot;, $post/item/tns1:ediParserRequest/tns1:output/tns1:fileName)&quot;/>&lt;/fileName>&lt;/xsl:when>&lt;xsl:otherwise>&lt;fileName>&lt;xsl:value-of select=&quot;concat($post/item/tns1:ediParserRequest/tns1:input/tns1:directoryName, &amp;quot;/Output/&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns1:documentEntry[1]/tns1:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;.csv&amp;quot;)&quot;/>&lt;/fileName>&lt;/xsl:otherwise>&lt;/xsl:choose>&lt;textContent>&lt;xsl:value-of select=&quot;$Renderdata&quot;/>&lt;/textContent>&lt;/tns7:WriteActivityInputTextClass>&lt;/xsl:template>&lt;/xsl:stylesheet>"
-                                    expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"
                                     inputVariable="WriteCSVBody-input"
                                     name="WriteCSVBody"
                                     outputVariable="WriteCSVBody"
@@ -4388,7 +4482,7 @@
                                     <tibex:inputBindings>
 
                                     <tibex:inputBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;post.item&quot;/>&#xa;    &lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&#xa;    &lt;xsl:param name=&quot;Mapper&quot;/>&#xa;    &lt;xsl:param name=&quot;Renderdata&quot;/>&#xa;    &lt;xsl:template name=&quot;WriteCSVBody-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns7:WriteActivityInputTextClass>&#xa;            &lt;xsl:choose>&#xa;                &lt;xsl:when test=&quot;string-length($post.item/tns1:output/tns1:directoryName)>0 and string-length($post.item/tns1:output/tns1:fileName)>0&quot;>&#xa;                    &lt;fileName>&#xa;                        &lt;xsl:value-of select=&quot;concat($post.item/tns1:output/tns1:directoryName, &amp;quot;/&amp;quot;, $post.item/tns1:output/tns1:fileName)&quot;/>&#xa;                    &lt;/fileName>&#xa;                &lt;/xsl:when>&#xa;                &lt;xsl:otherwise>&#xa;                    &lt;fileName>&#xa;                        &lt;xsl:value-of select=&quot;concat($post.item/tns1:input/tns1:directoryName, &amp;quot;/Output/&amp;quot;, $EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier, &amp;quot;_&amp;quot;, $Mapper/tns1:documentEntry[1]/tns1:orderId, &amp;quot;_&amp;quot;, format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;.csv&amp;quot;)&quot;/>&#xa;                    &lt;/fileName>&#xa;                &lt;/xsl:otherwise>&#xa;            &lt;/xsl:choose>&#xa;            &lt;textContent>&#xa;                &lt;xsl:value-of select=&quot;$Renderdata&quot;/>&#xa;            &lt;/textContent>&#xa;        &lt;/tns7:WriteActivityInputTextClass>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns7=&quot;http://www.tibco.com/namespaces/tnt/plugins/file&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Renderdata&quot;/>&lt;xsl:param name=&quot;WriteCSVHeader&quot;/>&lt;xsl:template name=&quot;WriteCSVBody-input&quot; match=&quot;/&quot;>&lt;tns7:WriteActivityInputTextClass>&lt;fileName>&lt;xsl:value-of select=&quot;$WriteCSVHeader/fileInfo/fullName&quot;/>&lt;/fileName>&lt;textContent>&lt;xsl:value-of select=&quot;$Renderdata&quot;/>&lt;/textContent>&lt;/tns7:WriteActivityInputTextClass>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                     </tibex:inputBindings>
                                     <tibex:config>
 
@@ -4424,7 +4518,7 @@
                                 name="ThrowStorageType" tibex:xpdlId="29d52f74-fdf4-40f8-ad71-9b4e729ea8c3">
                                 <tibex:inputBindings>
                                     <tibex:partBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns10=&quot;http://schemas.tibco.com/bw/plugins/basic/6.0/Exceptions&quot; version=&quot;2.0&quot;>&lt;xsl:template name=&quot;ThrowStorageType-input&quot; match=&quot;/&quot;>&lt;tns10:DefaultFault>&lt;message>&lt;xsl:value-of select=&quot;&amp;quot;Invalid storage type provided: select among 'file' or 'database'&amp;quot;&quot;/>&lt;/message>&lt;/tns10:DefaultFault>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns10=&quot;http://schemas.tibco.com/bw/plugins/basic/6.0/Exceptions&quot; version=&quot;2.0&quot;>&lt;xsl:template name=&quot;ThrowStorageType-input&quot; match=&quot;/&quot;>&lt;tns10:DefaultFault>&lt;message>&lt;xsl:value-of select=&quot;&amp;quot;Invalid storage type provided: select among 'file' or 'database'&amp;quot;&quot;/>&lt;/message>&lt;msgCode>&lt;xsl:value-of select=&quot;&amp;quot;BW6-1&amp;quot;&quot;/>&lt;/msgCode>&lt;/tns10:DefaultFault>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                 </tibex:inputBindings>
                                 <bpws:targets>
                                     <bpws:target linkName="MapperToThrow"/>

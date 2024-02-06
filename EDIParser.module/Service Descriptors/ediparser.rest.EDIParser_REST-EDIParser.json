@@ -37,6 +37,18 @@
             "schema" : {
               "$ref" : "#/definitions/ediParserResponse"
             }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "schema" : {
+              "$ref" : "#/definitions/ediParserResponse"
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "schema" : {
+              "$ref" : "#/definitions/ediParserResponse"
+            }
           }
         }
       }
@@ -51,6 +63,9 @@
           "type" : "boolean"
         },
         "errorDescription" : {
+          "type" : "string"
+        },
+        "outputDirectoryName" : {
           "type" : "string"
         },
         "historyDirectoryName" : {
