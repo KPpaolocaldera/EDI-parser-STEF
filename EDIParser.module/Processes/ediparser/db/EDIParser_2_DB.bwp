@@ -990,8 +990,6 @@
                         <element maxOccurs="1" minOccurs="1" name="id"
                             nillable="true" type="string"/>
                         <element maxOccurs="1" minOccurs="1"
-                            name="message_type" nillable="true" type="string"/>
-                        <element maxOccurs="1" minOccurs="1"
                             name="order_number" nillable="true" type="string"/>
                         <element maxOccurs="1" minOccurs="1"
                             name="customer_code" nillable="true" type="string"/>
@@ -1001,6 +999,8 @@
                             name="article_description" nillable="true" type="string"/>
                         <element maxOccurs="1" minOccurs="1"
                             name="quantity" nillable="true" type="int"/>
+                        <element maxOccurs="1" minOccurs="1"
+                            name="message_type" nillable="true" type="string"/>
                         <element maxOccurs="1" minOccurs="0"
                             name="ServerTimeZone" type="string"/>
                         <element maxOccurs="1" minOccurs="0"
@@ -2509,6 +2509,7 @@
                                     <type href="http://ns.tibco.com/bw/palette/file#//FilePoller"/>
                                     <value contentAs="text"
                                     createEvent="true"
+                                    includeCurrent="true"
                                     mode="files-and-directories"
                                     modifyEvent="true"
                                     sortby="File Name"
@@ -2672,7 +2673,8 @@
                     </tibex:config>
                 </tibex:activityExtension>
             </bpws:extensionActivity>
-            <bpws:scope name="Iterate" tibex:group="iterate" tibex:xpdlId="723d2384-9ffb-4d2a-a8ba-887dd84a9221">
+            <bpws:scope name="Iterate" tibex:group="iterate"
+                tibex:indexToGlobal="false" tibex:xpdlId="723d2384-9ffb-4d2a-a8ba-887dd84a9221">
                 <bpws:targets>
                     <bpws:target linkName="Assign1ToIterate"/>
                     <bpws:target linkName="AssignToIterate"/>
@@ -2734,7 +2736,7 @@
                                     </bpws:sources>
                                     <tibex:inputBindings>
                                     <tibex:inputBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/jdbc+473e0372-aa04-42b3-bb0b-7894e6355119+input&quot; xmlns:tns4=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;currentEntry&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:template name=&quot;JDBCUpdate-input&quot; match=&quot;/&quot;>&lt;tns5:jdbcUpdateActivityInput>&lt;id>&lt;xsl:value-of select=&quot;concat(format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;_&amp;quot;, $currentEntry/tns4:orderId, &amp;quot;_&amp;quot;, $currentEntry/tns4:articleId)&quot;/>&lt;/id>&lt;message_type>&lt;xsl:choose>&lt;xsl:when test=&quot;exists($EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier)&quot;>&lt;xsl:value-of select=&quot;$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier&quot;/>&lt;/xsl:when>&lt;xsl:otherwise>&lt;xsl:attribute name=&quot;xsi:nil&quot;>true&lt;/xsl:attribute>&lt;/xsl:otherwise>&lt;/xsl:choose>&lt;/message_type>&lt;order_number>&lt;xsl:value-of select=&quot;$currentEntry/tns4:orderId&quot;/>&lt;/order_number>&lt;customer_code>&lt;xsl:value-of select=&quot;$currentEntry/tns4:customerId&quot;/>&lt;/customer_code>&lt;article_code>&lt;xsl:value-of select=&quot;$currentEntry/tns4:articleId&quot;/>&lt;/article_code>&lt;article_description>&lt;xsl:value-of select=&quot;$currentEntry/tns4:articleDescription&quot;/>&lt;/article_description>&lt;quantity>&lt;xsl:value-of select=&quot;xsd:int($currentEntry/tns4:articleQuantity)&quot;/>&lt;/quantity>&lt;/tns5:jdbcUpdateActivityInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.tibco.com/namespaces/tnt/plugins/jdbc+473e0372-aa04-42b3-bb0b-7894e6355119+input&quot; xmlns:tns4=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;currentEntry&quot;/>&lt;xsl:param name=&quot;EDIFACTPrescanner&quot;/>&lt;xsl:template name=&quot;JDBCUpdate-input&quot; match=&quot;/&quot;>&lt;tns5:jdbcUpdateActivityInput>&lt;id>&lt;xsl:value-of select=&quot;concat(format-dateTime(current-dateTime(), &amp;quot;[Y0001][M01][D01][H01][m01][s01]&amp;quot;), &amp;quot;_&amp;quot;, $currentEntry/tns4:orderId, &amp;quot;_&amp;quot;, $currentEntry/tns4:articleId)&quot;/>&lt;/id>&lt;order_number>&lt;xsl:value-of select=&quot;$currentEntry/tns4:orderId&quot;/>&lt;/order_number>&lt;customer_code>&lt;xsl:value-of select=&quot;$currentEntry/tns4:customerId&quot;/>&lt;/customer_code>&lt;article_code>&lt;xsl:value-of select=&quot;$currentEntry/tns4:articleId&quot;/>&lt;/article_code>&lt;article_description>&lt;xsl:value-of select=&quot;$currentEntry/tns4:articleDescription&quot;/>&lt;/article_description>&lt;xsl:choose>&lt;xsl:when test=&quot;exists($currentEntry/tns4:articleQuantity)&quot;>&lt;quantity>&lt;xsl:value-of select=&quot;xsd:int($currentEntry/tns4:articleQuantity)&quot;/>&lt;/quantity>&lt;/xsl:when>&lt;xsl:otherwise>&lt;quantity xsi:nil=&quot;true&quot;/>&lt;/xsl:otherwise>&lt;/xsl:choose>&lt;message_type>&lt;xsl:choose>&lt;xsl:when test=&quot;exists($EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier)&quot;>&lt;xsl:value-of select=&quot;$EDIFACTPrescanner/UNH/MessageIdentifier/MessageTypeIdentifier&quot;/>&lt;/xsl:when>&lt;xsl:otherwise>&lt;xsl:attribute name=&quot;xsi:nil&quot;>true&lt;/xsl:attribute>&lt;/xsl:otherwise>&lt;/xsl:choose>&lt;/message_type>&lt;/tns5:jdbcUpdateActivityInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                     </tibex:inputBindings>
                                     <tibex:config>
                                     <bwext:BWActivity
@@ -2757,10 +2759,6 @@
 
                                     <PreparedParameters
                                     DataType="12"
-                                    DataTypeDisplayValue="VARCHAR" ParameterName="message_type"/>
-
-                                    <PreparedParameters
-                                    DataType="12"
                                     DataTypeDisplayValue="VARCHAR" ParameterName="order_number"/>
 
                                     <PreparedParameters
@@ -2778,6 +2776,10 @@
                                     <PreparedParameters
                                     DataType="4"
                                     DataTypeDisplayValue="INTEGER" ParameterName="quantity"/>
+
+                                    <PreparedParameters
+                                    DataType="12"
+                                    DataTypeDisplayValue="VARCHAR" ParameterName="message_type"/>
                                     </value>
                                     </properties>
                                     </activityConfig>
