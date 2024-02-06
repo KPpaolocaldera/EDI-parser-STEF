@@ -39,8 +39,8 @@
     <tibex:VariableDescriptor type="MemorySaving">
         <task name="pick">
             <endingVariables>
-                <variable>post</variable>
                 <variable>ReadFile</variable>
+                <variable>post</variable>
             </endingVariables>
         </task>
         <task name="ReplyPost">
@@ -185,6 +185,11 @@
         <task name="LogEnd1">
             <endingVariables>
                 <variable>LogEnd1-input</variable>
+            </endingVariables>
+        </task>
+        <task name="flow6">
+            <endingVariables>
+                <variable>FaultDetails1</variable>
             </endingVariables>
         </task>
         <task name="LogError1">
@@ -1608,6 +1613,7 @@
             <wsdl:message name="getResponse">
                 <wsdl:part element="extns:getItemsInfoResponse"
                     name="item" tibex:hasMultipleNamespaces="false"/>
+                <wsdl:part element="extns1:statusLine" name="status" tibex:source="bw.rest"/>
             </wsdl:message>
             <wsdl:message name="get4XXFaultMessage">
                 <wsdl:part element="extns1:client4XXError" name="clientError"/>
@@ -4207,7 +4213,7 @@
             <styles fontName="Segoe UI" xsi:type="notation:FontStyle"/>
             <element href="//0/@process/@activity/@activity/@activities.0/@messages.0/@activity/@activity/@links/@children.5"/>
             <bendpoints
-                points="[25, 0, -169, -106]$[64, 0, -130, -106]$[64, 106, -130, 0]$[105, 106, -89, 0]" xsi:type="notation:RelativeBendpoints"/>
+                points="[25, 0, -250, -106]$[119, 0, -156, -106]$[119, 106, -156, 0]$[186, 106, -89, 0]" xsi:type="notation:RelativeBendpoints"/>
         </edges>
         <edges
             source="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.7"
@@ -5535,6 +5541,12 @@
                                     partnerLink="ediparser"
                                     portType="ns:ediparser"
                                     tibex:xpdlId="4bcb762b-3d58-4f95-a0d7-31cd7facee80" variable="ReplyGet400-input">
+                                    <tibex:inputBinding expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns8="http://xmlns.example.com/20240205124128PLT" xmlns:tns9="http://tns.tibco.com/bw/REST" version="2.0"&gt;&lt;xsl:param name="FaultDetails1"/&gt;&lt;xsl:template name="ReplyGet400-input" match="/"&gt;&lt;tns8:get4XXFaultMessage&gt;&lt;clientError&gt;&lt;tns9:client4XXError&gt;&lt;statusCode&gt;&lt;xsl:value-of select="400"/&gt;&lt;/statusCode&gt;&lt;message&gt;&lt;xsl:value-of select="$FaultDetails1/Msg"/&gt;&lt;/message&gt;&lt;/tns9:client4XXError&gt;&lt;/clientError&gt;&lt;/tns8:get4XXFaultMessage&gt;&lt;/xsl:template&gt;&lt;/xsl:stylesheet&gt;</tibex:inputBinding>
+                                    <tibex:inputBindings>
+                                    <tibex:partBinding
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;FaultDetails1&quot;/>&#xa;    &lt;xsl:template name=&quot;ReplyGet400-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns9:client4XXError>&#xa;            &lt;statusCode>&#xa;                &lt;xsl:value-of select=&quot;400&quot;/>&#xa;            &lt;/statusCode>&#xa;            &lt;message>&#xa;                &lt;xsl:value-of select=&quot;$FaultDetails1/Msg&quot;/>&#xa;            &lt;/message>&#xa;        &lt;/tns9:client4XXError>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    </tibex:inputBindings>
                                     <bpws:targets>
                                     <bpws:target linkName="LogToReply"/>
                                     </bpws:targets>
@@ -5546,6 +5558,12 @@
                                     partnerLink="ediparser"
                                     portType="ns:ediparser"
                                     tibex:xpdlId="97d9d608-207b-4ae5-9982-902af4dc3599" variable="ReplyGet500-input">
+                                    <tibex:inputBinding expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns8="http://xmlns.example.com/20240205124128PLT" xmlns:tns9="http://tns.tibco.com/bw/REST" version="2.0"&gt;&lt;xsl:param name="FaultDetails1"/&gt;&lt;xsl:template name="ReplyGet500-input" match="/"&gt;&lt;tns8:get5XXFaultMessage&gt;&lt;serverError&gt;&lt;tns9:server5XXError&gt;&lt;statusCode&gt;&lt;xsl:value-of select="500"/&gt;&lt;/statusCode&gt;&lt;message&gt;&lt;xsl:value-of select="$FaultDetails1/Msg"/&gt;&lt;/message&gt;&lt;/tns9:server5XXError&gt;&lt;/serverError&gt;&lt;/tns8:get5XXFaultMessage&gt;&lt;/xsl:template&gt;&lt;/xsl:stylesheet&gt;</tibex:inputBinding>
+                                    <tibex:inputBindings>
+                                    <tibex:partBinding
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;FaultDetails1&quot;/>&#xa;    &lt;xsl:template name=&quot;ReplyGet500-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns9:server5XXError>&#xa;            &lt;statusCode>&#xa;                &lt;xsl:value-of select=&quot;500&quot;/>&#xa;            &lt;/statusCode>&#xa;            &lt;message>&#xa;                &lt;xsl:value-of select=&quot;$FaultDetails1/Msg&quot;/>&#xa;            &lt;/message>&#xa;        &lt;/tns9:server5XXError>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    </tibex:inputBindings>
                                     <bpws:targets>
                                     <bpws:target linkName="LogToReply1"/>
                                     </bpws:targets>
@@ -5570,10 +5588,12 @@
                                 portType="ns:ediparser"
                                 tibex:xpdlId="45fc51c1-d62b-49da-af20-929f6de795a1" variable="ReplyGet-input">
                                 <tibex:inputBinding expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns8="http://xmlns.example.com/20240205124128PLT" xmlns:tns1="http://www.keypartner.com/ApplicationSchema" version="2.0"&gt;&lt;xsl:param name="Mapper1"/&gt;&lt;xsl:template name="getOut-input" match="/"&gt;&lt;tns8:getResponse&gt;&lt;item&gt;&lt;tns1:getItemsInfoResponse&gt;&lt;xsl:for-each select="$Mapper1/tns1:getItemInfoResponse"&gt;&lt;tns1:getItemInfoResponse&gt;&lt;tns1:messageType&gt;&lt;xsl:value-of select="tns1:messageType"/&gt;&lt;/tns1:messageType&gt;&lt;tns1:orderNumber&gt;&lt;xsl:value-of select="tns1:orderNumber"/&gt;&lt;/tns1:orderNumber&gt;&lt;tns1:customerCode&gt;&lt;xsl:value-of select="tns1:customerCode"/&gt;&lt;/tns1:customerCode&gt;&lt;tns1:artcileCode&gt;&lt;xsl:value-of select="tns1:artcileCode"/&gt;&lt;/tns1:artcileCode&gt;&lt;tns1:articleDescription&gt;&lt;xsl:value-of select="tns1:articleDescription"/&gt;&lt;/tns1:articleDescription&gt;&lt;/tns1:getItemInfoResponse&gt;&lt;/xsl:for-each&gt;&lt;/tns1:getItemsInfoResponse&gt;&lt;/item&gt;&lt;/tns8:getResponse&gt;&lt;/xsl:template&gt;&lt;/xsl:stylesheet&gt;</tibex:inputBinding>
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns8="http://xmlns.example.com/20240205124128PLT" xmlns:tns1="http://www.keypartner.com/ApplicationSchema" xmlns:tns9="http://tns.tibco.com/bw/REST" version="2.0"&gt;&lt;xsl:param name="Mapper1"/&gt;&lt;xsl:template name="ReplyGet-input" match="/"&gt;&lt;tns8:getResponse&gt;&lt;item&gt;&lt;tns1:getItemsInfoResponse&gt;&lt;xsl:for-each select="$Mapper1/tns1:getItemInfoResponse"&gt;&lt;tns1:getItemInfoResponse&gt;&lt;tns1:messageType&gt;&lt;xsl:value-of select="tns1:messageType"/&gt;&lt;/tns1:messageType&gt;&lt;tns1:orderNumber&gt;&lt;xsl:value-of select="tns1:orderNumber"/&gt;&lt;/tns1:orderNumber&gt;&lt;tns1:customerCode&gt;&lt;xsl:value-of select="tns1:customerCode"/&gt;&lt;/tns1:customerCode&gt;&lt;tns1:artcileCode&gt;&lt;xsl:value-of select="tns1:artcileCode"/&gt;&lt;/tns1:artcileCode&gt;&lt;tns1:articleDescription&gt;&lt;xsl:value-of select="tns1:articleDescription"/&gt;&lt;/tns1:articleDescription&gt;&lt;/tns1:getItemInfoResponse&gt;&lt;/xsl:for-each&gt;&lt;/tns1:getItemsInfoResponse&gt;&lt;/item&gt;&lt;status&gt;&lt;tns9:statusLine&gt;&lt;statusCode&gt;&lt;xsl:value-of select="200"/&gt;&lt;/statusCode&gt;&lt;/tns9:statusLine&gt;&lt;/status&gt;&lt;/tns8:getResponse&gt;&lt;/xsl:template&gt;&lt;/xsl:stylesheet&gt;</tibex:inputBinding>
                                 <tibex:inputBindings>
                                     <tibex:partBinding
-                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;Mapper1&quot;/>&#xa;    &lt;xsl:template name=&quot;getOut-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:getItemsInfoResponse>&#xa;            &lt;xsl:for-each select=&quot;$Mapper1/tns1:getItemInfoResponse&quot;>&#xa;                &lt;tns1:getItemInfoResponse>&#xa;                    &lt;tns1:messageType>&#xa;                        &lt;xsl:value-of select=&quot;tns1:messageType&quot;/>&#xa;                    &lt;/tns1:messageType>&#xa;                    &lt;tns1:orderNumber>&#xa;                        &lt;xsl:value-of select=&quot;tns1:orderNumber&quot;/>&#xa;                    &lt;/tns1:orderNumber>&#xa;                    &lt;tns1:customerCode>&#xa;                        &lt;xsl:value-of select=&quot;tns1:customerCode&quot;/>&#xa;                    &lt;/tns1:customerCode>&#xa;                    &lt;tns1:artcileCode>&#xa;                        &lt;xsl:value-of select=&quot;tns1:artcileCode&quot;/>&#xa;                    &lt;/tns1:artcileCode>&#xa;                    &lt;tns1:articleDescription>&#xa;                        &lt;xsl:value-of select=&quot;tns1:articleDescription&quot;/>&#xa;                    &lt;/tns1:articleDescription>&#xa;                &lt;/tns1:getItemInfoResponse>&#xa;            &lt;/xsl:for-each>&#xa;        &lt;/tns1:getItemsInfoResponse>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;Mapper1&quot;/>&#xa;    &lt;xsl:template name=&quot;ReplyGet-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:getItemsInfoResponse>&#xa;            &lt;xsl:for-each select=&quot;$Mapper1/tns1:getItemInfoResponse&quot;>&#xa;                &lt;tns1:getItemInfoResponse>&#xa;                    &lt;tns1:messageType>&#xa;                        &lt;xsl:value-of select=&quot;tns1:messageType&quot;/>&#xa;                    &lt;/tns1:messageType>&#xa;                    &lt;tns1:orderNumber>&#xa;                        &lt;xsl:value-of select=&quot;tns1:orderNumber&quot;/>&#xa;                    &lt;/tns1:orderNumber>&#xa;                    &lt;tns1:customerCode>&#xa;                        &lt;xsl:value-of select=&quot;tns1:customerCode&quot;/>&#xa;                    &lt;/tns1:customerCode>&#xa;                    &lt;tns1:artcileCode>&#xa;                        &lt;xsl:value-of select=&quot;tns1:artcileCode&quot;/>&#xa;                    &lt;/tns1:artcileCode>&#xa;                    &lt;tns1:articleDescription>&#xa;                        &lt;xsl:value-of select=&quot;tns1:articleDescription&quot;/>&#xa;                    &lt;/tns1:articleDescription>&#xa;                &lt;/tns1:getItemInfoResponse>&#xa;            &lt;/xsl:for-each>&#xa;        &lt;/tns1:getItemsInfoResponse>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                                    <tibex:partBinding
+                                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns8=&quot;http://xmlns.example.com/20240205124128PLT&quot; xmlns:tns1=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:tns9=&quot;http://tns.tibco.com/bw/REST&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:template name=&quot;ReplyGet-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns9:statusLine>&#xa;            &lt;statusCode>&#xa;                &lt;xsl:value-of select=&quot;200&quot;/>&#xa;            &lt;/statusCode>&#xa;        &lt;/tns9:statusLine>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                 </tibex:inputBindings>
                                 <bpws:targets>
                                     <bpws:target linkName="Mapper1TogetOut"/>
