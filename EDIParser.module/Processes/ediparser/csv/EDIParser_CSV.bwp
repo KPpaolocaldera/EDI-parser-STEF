@@ -2379,6 +2379,7 @@
                                     <type href="http://ns.tibco.com/bw/palette/file#//FilePoller"/>
                                     <value contentAs="text"
                                     createEvent="true"
+                                    includeCurrent="true"
                                     mode="files-and-directories"
                                     modifyEvent="true"
                                     sortby="File Name"
@@ -2506,7 +2507,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:ns1=&quot;http://www.tibco.com/ns/Foresight/2010/20/D96A_HANMOV&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;ParseXml&quot;/>&#xa;    &lt;xsl:template name=&quot;Mapper-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns3:documentEntries>&#xa;            &lt;xsl:for-each select=&quot;$ParseXml/ns1:L-UNB/ns1:L-UNG/ns1:L-UNH/ns1:L-LIN_30&quot;>&#xa;                &lt;tns3:documentEntry>&#xa;                    &lt;tns3:orderId>&#xa;                        &lt;xsl:value-of select=&quot;$ParseXml/ns1:L-UNB[1]/ns1:L-UNG[1]/ns1:L-UNH[1]/ns1:S-BGM_2[1]/ns1:E-1004_2_02[1]&quot;/>&#xa;                    &lt;/tns3:orderId>&#xa;                    &lt;tns3:customerId>&#xa;                        &lt;xsl:value-of select=&quot;$ParseXml/ns1:L-UNB[1]/ns1:L-UNG[1]/ns1:L-UNH[1]/ns1:L-NAD_15[ns1:S-NAD_16/ns1:E-3035_16_01='LSP']/ns1:S-NAD_16/ns1:C-C082_16_02[1]/ns1:E-3039_16_02.01[1]&quot;/>&#xa;                    &lt;/tns3:customerId>&#xa;                    &lt;tns3:articleId>&#xa;                        &lt;xsl:value-of select=&quot;current()/ns1:S-PIA_32[ns1:E-4347_32_01='5']/ns1:C-C212_32_02[1]/ns1:E-7140_32_02.01[1]&quot;/>&#xa;                    &lt;/tns3:articleId>&#xa;                    &lt;tns3:articleDescription>&#xa;                        &lt;xsl:value-of select=&quot;current()/ns1:S-IMD_33[ns1:E-7077_33_01='E']/ns1:C-C273_33_03[1]/ns1:E-7008_33_03.04[1]&quot;/>&#xa;                    &lt;/tns3:articleDescription>&#xa;                    &lt;tns3:articleQuantity>&#xa;                        &lt;xsl:value-of select=&quot;xsd:integer(current()/ns1:S-QTY_42[1]/ns1:C-C186_42_01[1]/ns1:E-6060_42_01.02[1])&quot;/>&#xa;                    &lt;/tns3:articleQuantity>&#xa;                &lt;/tns3:documentEntry>&#xa;            &lt;/xsl:for-each>&#xa;        &lt;/tns3:documentEntries>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns3=&quot;http://www.keypartner.com/ApplicationSchema&quot; xmlns:ns1=&quot;http://www.tibco.com/ns/Foresight/2010/20/D96A_HANMOV&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;ParseXml&quot;/>&lt;xsl:template name=&quot;Mapper-input&quot; match=&quot;/&quot;>&lt;tns3:documentEntries>&lt;xsl:for-each select=&quot;$ParseXml/ns1:L-UNB/ns1:L-UNG/ns1:L-UNH/ns1:L-LIN_30&quot;>&lt;tns3:documentEntry>&lt;tns3:orderId>&lt;xsl:value-of select=&quot;$ParseXml/ns1:L-UNB[1]/ns1:L-UNG[1]/ns1:L-UNH[1]/ns1:S-BGM_2[1]/ns1:E-1004_2_02[1]&quot;/>&lt;/tns3:orderId>&lt;tns3:customerId>&lt;xsl:value-of select=&quot;$ParseXml/ns1:L-UNB[1]/ns1:L-UNG[1]/ns1:L-UNH[1]/ns1:L-NAD_15[ns1:S-NAD_16/ns1:E-3035_16_01='LSP']/ns1:S-NAD_16/ns1:C-C082_16_02[1]/ns1:E-3039_16_02.01[1]&quot;/>&lt;/tns3:customerId>&lt;tns3:articleId>&lt;xsl:value-of select=&quot;current()/ns1:S-PIA_32[ns1:E-4347_32_01='5']/ns1:C-C212_32_02[1]/ns1:E-7140_32_02.01[1]&quot;/>&lt;/tns3:articleId>&lt;tns3:articleDescription>&lt;xsl:value-of select=&quot;current()/ns1:S-IMD_33[ns1:E-7077_33_01='E']/ns1:C-C273_33_03[1]/ns1:E-7008_33_03.04[1]&quot;/>&lt;/tns3:articleDescription>&lt;tns3:articleQuantity>&lt;xsl:value-of select=&quot;xsd:integer(current()/ns1:S-QTY_42[1]/ns1:C-C186_42_01[1]/ns1:E-6060_42_01.02[1])&quot;/>&lt;/tns3:articleQuantity>&lt;/tns3:documentEntry>&lt;/xsl:for-each>&lt;/tns3:documentEntries>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
@@ -2560,7 +2561,8 @@
                     </tibex:config>
                 </tibex:activityExtension>
             </bpws:extensionActivity>
-            <bpws:scope name="Iterate" tibex:group="iterate" tibex:xpdlId="450c38f0-a0c3-40a4-bf5f-f5827aa74bdf">
+            <bpws:scope name="Iterate" tibex:group="iterate"
+                tibex:indexToGlobal="false" tibex:xpdlId="450c38f0-a0c3-40a4-bf5f-f5827aa74bdf">
                 <bpws:targets>
                     <bpws:target linkName="WriteFileToIterate"/>
                 </bpws:targets>

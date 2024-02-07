@@ -2488,7 +2488,8 @@
                     </tibex:config>
                 </tibex:activityExtension>
             </bpws:extensionActivity>
-            <bpws:scope name="Iterate" tibex:group="iterate" tibex:xpdlId="723d2384-9ffb-4d2a-a8ba-887dd84a9221">
+            <bpws:scope name="Iterate" tibex:group="iterate"
+                tibex:indexToGlobal="false" tibex:xpdlId="723d2384-9ffb-4d2a-a8ba-887dd84a9221">
                 <bpws:targets>
                     <bpws:target linkName="MapperToForEach"/>
                 </bpws:targets>

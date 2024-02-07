@@ -1228,6 +1228,9 @@
         <bpws:variable element="ns13:T-HANMOV" name="ParseXml" sca-bpel:internal="true"/>
         <bpws:variable element="ns11:ActivityErrorData"
             name="_error_ParseXml" sca-bpel:internal="true"/>
+        <bpws:variable name="fullPathIn" sca-bpel:hotUpdate="false"
+            sca-bpel:privateProperty="true" sca-bpel:property="yes"
+            tibex:propertySource="/Project/File/fullPathIn" type="xsd:string"/>
     </bpws:variables>
     <bpws:extensions>
         <bpws:extension mustUnderstand="no" namespace="http://www.eclipse.org/gmf/runtime/1.0.2/notation"/>
@@ -1259,13 +1262,15 @@
                             xmlns:activityconfig="http://tns.tibco.com/bw/model/activityconfig"
                             xmlns:bwext="http://tns.tibco.com/bw/model/core/bwext"
                             xmlns:file="http://ns.tibco.com/bw/palette/file" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <attributeBindings
+                                bindingType="moduleProperty"
+                                eAttributeName="fileName" processProperty="fullPathIn"/>
                             <activityConfig>
                                 <properties name="config" xsi:type="activityconfig:EMFProperty">
                                     <type href="http://ns.tibco.com/bw/palette/file#//FilePoller"/>
                                     <value contentAs="text"
                                     createEvent="true"
                                     encodingUsed="UTF-8"
-                                    fileName="C:\Users\paolocaldera\Downloads\edi_hanmov.txt"
                                     includeCurrent="true"
                                     mode="files-and-directories"
                                     modifyEvent="true"
